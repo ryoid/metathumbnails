@@ -209,9 +209,6 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
     const [renderError, setRenderError] = React.useState(null);
     const [width, setWidth] = React.useState(16 * 120);
     const [height, setHeight] = React.useState(9 * 120);
-    const [iframeNode, setIframeNode] = React.useState<
-      HTMLElement | undefined
-    >();
     const [scaleRatio, setScaleRatio] = React.useState(1);
     const [loadingResources, setLoadingResources] = React.useState(true);
 
@@ -415,8 +412,6 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                 }
               );
               if (renderType === "png") {
-                console.log("do png stuff");
-
                 const url = (await renderPNG?.({
                   svg: _result,
                   width,
@@ -442,23 +437,6 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                   // }
                 }
               }
-              // if (renderType === "pdf") {
-              //   const doc = new PDFDocument({
-              //     compress: false,
-              //     size: [width, height],
-              //   });
-              //   SVGtoPDF(doc, _result, 0, 0, {
-              //     width,
-              //     height,
-              //     preserveAspectRatio: `xMidYMid meet`,
-              //   });
-              //   const stream = doc.pipe(blobStream());
-              //   stream.on("finish", () => {
-              //     const blob = stream.toBlob("application/pdf");
-              //     setObjectURL(URL.createObjectURL(blob));
-              //   });
-              //   doc.end();
-              // }
               setRenderError(null);
             } catch (e: any) {
               console.error(e);

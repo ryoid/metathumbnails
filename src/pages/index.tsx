@@ -25,11 +25,9 @@ const Home: NextPage = () => {
         <Header />
 
         <div className="container mx-auto px-4">
-          <div className="relative h-32 bg-black">
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="aspect-[16/9] bg-gray-800">
-                <Preview />
-              </div>
+          <div className="relative h-auto bg-black">
+            <div className=" bg-gray-800">
+              <Preview />
             </div>
           </div>
 

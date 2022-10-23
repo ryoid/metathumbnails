@@ -14,7 +14,7 @@ const Textarea = React.forwardRef<TextareaElement, TextareaProps>(
     return (
       <textarea
         {...props}
-        className={cn(props.className, RootCn)}
+        className={cn(RootCn, props.className)}
         ref={forwardedRef}
       />
     );

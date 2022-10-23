@@ -14,7 +14,7 @@ const InputText = React.forwardRef<InputTextElement, InputTextProps>(
     return (
       <input
         {...props}
-        className={cn(props.className, RootCn)}
+        className={cn(RootCn, props.className)}
         ref={forwardedRef}
       />
     );

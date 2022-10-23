@@ -19,9 +19,13 @@ const SuggestionPill = React.forwardRef<
   return (
     <span
       {...props}
-      className={cn(props.className, RootCn, {
-        "pr-1.5": !!onRemove,
-      })}
+      className={cn(
+        RootCn,
+        {
+          "pr-1.5": !!onRemove,
+        },
+        props.className
+      )}
       ref={forwardedRef}
     >
       {children}

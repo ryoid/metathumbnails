@@ -13,7 +13,7 @@ const FormControl = React.forwardRef<FormControlElement, FormControlProps>(
     return (
       <div
         {...props}
-        className={cn(props.className, RootCn)}
+        className={cn(RootCn, props.className)}
         ref={forwardedRef}
       />
     );

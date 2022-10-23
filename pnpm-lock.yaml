@@ -26,6 +26,7 @@ specifiers:
   fflate: ^0.7.4
   hyperid: ^3.0.1
   intl-segmenter-polyfill: ^0.4.4
+  jotai: ^1.8.6
   js-base64: ^3.7.2
   next: 12.3.1
   next-auth: ^4.12.3
@@ -62,6 +63,7 @@ dependencies:
   fflate: 0.7.4
   hyperid: 3.0.1
   intl-segmenter-polyfill: 0.4.4
+  jotai: 1.8.6_react@18.2.0
   js-base64: 3.7.2
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.14.0_azq6kxkn3od7qdylwkyksrwopy
@@ -1944,6 +1946,43 @@ packages:
 
   /jose/4.10.3:
     resolution: {integrity: sha512-3S4wQnaoJKSAx9uHSoyf8B/lxjs1qCntHWL6wNFszJazo+FtWe+qD0zVfY0BlqJ5HHK4jcnM98k3BQzVLbzE4g==}
+    dev: false
+
+  /jotai/1.8.6_react@18.2.0:
+    resolution: {integrity: sha512-6JXNd2ewR6Ur0hGY0kRJebQ++p7lN/8kNdGNXv7XT11FDPxAtPN2XLM+m0w4bV22f1knQlG8ZpVLfY6BEGF+UQ==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      '@tanstack/query-core': '*'
+      '@urql/core': '*'
+      immer: '*'
+      optics-ts: '*'
+      react: '>=16.8'
+      valtio: '*'
+      wonka: '*'
+      xstate: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@tanstack/query-core':
+        optional: true
+      '@urql/core':
+        optional: true
+      immer:
+        optional: true
+      optics-ts:
+        optional: true
+      valtio:
+        optional: true
+      wonka:
+        optional: true
+      xstate:
+        optional: true
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /js-base64/3.7.2:

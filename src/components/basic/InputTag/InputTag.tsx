@@ -8,10 +8,14 @@ type PrimitiveInputTagProps = React.ComponentPropsWithoutRef<"input">;
 
 type InputTagValue = { id: string; value: string };
 
-type InputTagProps = PrimitiveInputTagProps & {
+type InputTagProps = Omit<
+  PrimitiveInputTagProps,
+  "defaultValue" | "onChange"
+> & {
   defaultValue?: string[] | InputTagValue[];
   tag?: typeof SuggestionPill;
   tagCn?: string;
+  onChange?: (values: InputTagValue[]) => void;
 };
 
 const NAME = "InputTag";
@@ -34,7 +38,7 @@ const formatDefaultValue = (
 };
 
 const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
-  ({ tag, tagCn, defaultValue, ...props }, forwardedRef) => {
+  ({ tag, tagCn, defaultValue, onChange, ...props }, forwardedRef) => {
     const innerRef = React.useRef<InputTagElement>(null);
     const [tags, setTags] = React.useState<InputTagValue[]>(
       formatDefaultValue(defaultValue)
@@ -53,13 +57,17 @@ const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
         const value = innerRef.current.value;
         // Reset value
         innerRef.current.value = "";
-        setTags((currentTags) => [
-          ...currentTags,
-          {
-            id: instance(),
-            value,
-          },
-        ]);
+        setTags((currentTags) => {
+          const newTags = [
+            ...currentTags,
+            {
+              id: instance(),
+              value,
+            },
+          ];
+          onChange?.(newTags);
+          return newTags;
+        });
       }
     };
 
@@ -67,6 +75,7 @@ const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
       const newTags = tags.filter((tag) => tag.id !== id);
       if (newTags.length !== tags.length) {
         setTags(newTags);
+        onChange?.(newTags);
       }
     };
 
@@ -74,7 +83,7 @@ const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
       <>
         <input
           {...props}
-          className={cn(props.className, RootCn)}
+          className={cn(RootCn, props.className)}
           ref={innerRef}
           onKeyDown={handleKeyDown}
         />

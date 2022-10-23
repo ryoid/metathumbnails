@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply bg-gray-900 text-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  button,
+  label {
+    @apply font-brand;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    @apply font-normal;
+  }
+}
+
 /* Fonts for the demo */
 @font-face {
   font-family: "Inter";
@@ -26,74 +51,12 @@
     monospace;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html,
 body,
 #__next {
   height: 100%;
 }
 
-body {
-  font-family: var(--font);
-  font-variant: common-ligatures contextual;
-  letter-spacing: -0.015em;
-  margin: 0;
-  background: fixed 0 0 /20px 20px radial-gradient(#d1d1d1 1px, transparent 0),
-    fixed 10px 10px /20px 20px radial-gradient(#d1d1d1 1px, transparent 0);
-}
-
-nav {
-  display: flex;
-  position: sticky;
-  top: 0;
-  height: 40px;
-  align-items: center;
-  padding: 0 15px;
-  background: white;
-  box-shadow: 0 0 24px rgb(0 0 0 / 10%), 0 0 0 1px rgb(0 0 0 / 4%);
-  font-size: 0.9rem;
-  z-index: 2;
-}
-
-h1 {
-  flex: 1;
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #444;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  letter-spacing: -0.015rem;
-  word-spacing: -0.09rem;
-  cursor: default;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  gap: 10px;
-}
-
-a {
-  color: inherit;
-}
-
-iframe {
-  position: absolute;
-  border: none;
-  appearance: none;
-}
-
-textarea,
-pre,
-code {
-  font-family: var(--font) !important;
-}
 .editor {
   display: flex;
   flex-direction: column;
@@ -121,15 +84,6 @@ code {
   flex: 1;
 }
 
-.container {
-  display: flex;
-  width: 100%;
-  height: calc(100% - 40px);
-  margin: 0;
-  padding: 10px;
-  overflow: auto;
-  gap: 10px;
-}
 .container > .tabs {
   height: 100%;
   display: flex;

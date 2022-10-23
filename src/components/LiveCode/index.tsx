@@ -482,18 +482,18 @@ const LiveSatori = withLive(function ({
                 // After rendering the PNG @1x quickly, we render the PNG @2x for
                 // the playground only to make it look less blurry.
                 // We only do that for images that are not too big (1200^2).
-                if (width * height <= 1440000) {
-                  setTimeout(async () => {
-                    if (cancelled) return;
-                    const _url = (await renderPNG?.({
-                      svg: _result,
-                      width: width * 2,
-                    })) as string;
+                // if (width * height <= 1440000) {
+                setTimeout(async () => {
+                  if (cancelled) return;
+                  const _url = (await renderPNG?.({
+                    svg: _result,
+                    width: width * 4,
+                  })) as string;
 
-                    if (cancelled) return;
-                    setObjectURL(_url);
-                  }, 20);
-                }
+                  if (cancelled) return;
+                  setObjectURL(_url);
+                }, 20);
+                // }
               }
             }
             // if (renderType === "pdf") {
@@ -676,7 +676,7 @@ const LiveSatori = withLive(function ({
                 value={width}
                 onChange={(e) => setWidth(Number(e.target.value))}
                 min={100}
-                max={1200}
+                max={1920}
                 step={1}
               />
               <input
@@ -685,7 +685,7 @@ const LiveSatori = withLive(function ({
                 value={width}
                 onChange={(e) => setWidth(Number(e.target.value))}
                 min={100}
-                max={1200}
+                max={1920}
                 step={1}
               />
               px
@@ -699,7 +699,7 @@ const LiveSatori = withLive(function ({
                 value={height}
                 onChange={(e) => setHeight(Number(e.target.value))}
                 min={100}
-                max={1200}
+                max={1920}
                 step={1}
               />
               <input
@@ -708,7 +708,7 @@ const LiveSatori = withLive(function ({
                 value={height}
                 onChange={(e) => setHeight(Number(e.target.value))}
                 min={100}
-                max={1200}
+                max={1920}
                 step={1}
               />
               px

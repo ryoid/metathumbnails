@@ -1,4 +1,4 @@
-import { atomWithStorage } from "jotai/utils";
+import { atom } from "jotai";
 
 type GmailFormState = {
   from: string;
@@ -20,16 +20,8 @@ export const InitialGmailFormState = {
   suggestions: ["Oh no...", "Am I getting"],
 };
 
-// type FormState = GmailFormState & {
-//   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-//   set: (
-//     key: keyof GmailFormState,
-//     value: GmailFormState[keyof GmailFormState]
-//   ) => void;
-//   init: (by: GmailFormState) => void;
-// };
+const isSSR = typeof window === "undefined";
 
-export const gmailFormAtom = atomWithStorage<GmailFormState>(
-  "gmail-form-" + new Date().toISOString(),
-  InitialGmailFormState
-);
+const PERSIST_KEY = "gmail-form";
+
+export const formAtom = atom<GmailFormState>(InitialGmailFormState);

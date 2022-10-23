@@ -1,8 +1,8 @@
 import React from "react";
 import cn from "clsx";
-
-import { gmailFormAtom } from "../../store/form";
 import { useAtom } from "jotai";
+
+import { formAtom } from "../../store/form";
 
 type PreviewElement = React.ElementRef<"div">;
 type PrimitivePreviewProps = React.ComponentPropsWithoutRef<"div">;
@@ -13,7 +13,7 @@ const RootCn = "form-control flex flex-col gap-1.5 w-full";
 
 const Preview = React.forwardRef<PreviewElement, PreviewProps>(
   (props, forwardedRef) => {
-    const [f] = useAtom(gmailFormAtom);
+    const [f] = useAtom(formAtom);
 
     return (
       <div
@@ -22,7 +22,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
         ref={forwardedRef}
       >
         Preview
-        <code suppressHydrationWarning>{JSON.stringify(f, null, 2)}</code>
+        <code className="text-xs">{JSON.stringify(f, null, 2)}</code>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import cn from "clsx";
+import { useAtom } from "jotai";
 
 import {
   FormControl,
@@ -9,15 +10,14 @@ import {
   Textarea,
 } from "../basic";
 import InputTag from "../basic/InputTag";
-import { useAtom } from "jotai";
-import { gmailFormAtom } from "../../store/form";
+import { formAtom } from "../../store/form";
 
 type GmailFormElement = React.ElementRef<"form">;
 type PrimitiveGmailFormProps = React.ComponentPropsWithoutRef<"form">;
 type GmailFormProps = PrimitiveGmailFormProps;
 
 const GmailForm: React.FC<GmailFormProps> = (props) => {
-  const [f, setForm] = useAtom(gmailFormAtom);
+  const [f, setForm] = useAtom(formAtom);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,24 +36,20 @@ const GmailForm: React.FC<GmailFormProps> = (props) => {
       <div className="grid grid-cols-3 gap-2">
         <FormControl className="col-span-2">
           <Label htmlFor="from">From</Label>
-          <InputText
-            id="from"
-            defaultValue={f.from}
-            onChange={handleInputChange}
-          />
+          <InputText id="from" value={f.from} onChange={handleInputChange} />
         </FormControl>
 
         <FormControl>
           <Label htmlFor="avatar">Avatar</Label>
           <InputText
             id="avatar"
-            defaultValue="https://thispersondoesnotexist.com/image"
+            value="https://thispersondoesnotexist.com/image"
             onChange={handleInputChange}
           />
         </FormControl>
         <FormControl className="col-span-2">
           <Label htmlFor="to">To</Label>
-          <InputText id="to" defaultValue={f.to} onChange={handleInputChange} />
+          <InputText id="to" value={f.to} onChange={handleInputChange} />
         </FormControl>
       </div>
 
@@ -65,17 +61,13 @@ const GmailForm: React.FC<GmailFormProps> = (props) => {
       <div className="flex gap-2">
         <FormControl>
           <Label htmlFor="time">Time</Label>
-          <InputText
-            id="time"
-            defaultValue={f.time}
-            onChange={handleInputChange}
-          />
+          <InputText id="time" value={f.time} onChange={handleInputChange} />
         </FormControl>
         <FormControl>
           <Label htmlFor="time_ago">How long ago</Label>
           <InputText
             id="time_ago"
-            defaultValue={f.time_ago}
+            value={f.time_ago}
             onChange={handleInputChange}
           />
         </FormControl>
@@ -91,7 +83,7 @@ const GmailForm: React.FC<GmailFormProps> = (props) => {
         <Label htmlFor="body">Words</Label>
         <Textarea
           id="body"
-          defaultValue={f.body}
+          value={f.body}
           rows={8}
           onChange={handleInputChange}
         />

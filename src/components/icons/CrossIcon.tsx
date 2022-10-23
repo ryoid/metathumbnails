@@ -1,8 +1,6 @@
-import React, { FC } from "react";
+import React from "react";
 
-type CrossIconProps = {};
-
-const CrossIcon: FC<CrossIconProps> = ({}) => {
+const CrossIcon: React.FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

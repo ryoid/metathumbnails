@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, WritableAtom } from "jotai";
 
 export type GmailFormState = {
   from: string;
@@ -37,10 +37,12 @@ function atomWithLocalStorage<T>(key: string, initialValue: GmailFormState) {
   const baseAtom = atom<T>(getInitialValue());
   const derivedAtom = atom(
     (get) => get(baseAtom),
-    (get, set, update) => {
+    (get, set, update: ((s: T) => T) | T) => {
       const nextValue =
-        typeof update === "function" ? update(get(baseAtom)) : update;
-      set(baseAtom as any, nextValue);
+        typeof update === "function"
+          ? (update as (s: T) => T)(get(baseAtom))
+          : update;
+      set(baseAtom as WritableAtom<T, T, void | Promise<void>>, nextValue);
       localStorage.setItem(key, JSON.stringify(nextValue));
     }
   );

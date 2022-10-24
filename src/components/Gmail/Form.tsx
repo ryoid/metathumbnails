@@ -43,7 +43,7 @@ const GmailForm: React.FC<GmailFormProps> = (props) => {
           <Label htmlFor="avatar">Avatar</Label>
           <InputText
             id="avatar"
-            value="https://thispersondoesnotexist.com/image"
+            value={f.avatar}
             onChange={handleInputChange}
           />
         </FormControl>

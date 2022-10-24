@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import satori from "satori";
 import { LiveProvider, LiveContext, withLive } from "react-live";
@@ -588,69 +589,27 @@ const LiveSatori = withLive(function ({
                   }
             }
           >
-            {renderType === "html" ? (
-              <iframe
-                key="html"
-                ref={(node) => {
-                  if (node) {
-                    setIframeNode(node.contentWindow?.document?.body);
-                  }
-                }}
-                width={width}
-                height={height}
-                style={{
-                  transform: `scale(${scaleRatio})`,
-                }}
-              >
-                {iframeNode &&
-                  createPortal(
-                    <>
-                      <style
-                        dangerouslySetInnerHTML={{
-                          __html: `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons');body{display:flex;height:100%;margin:0;font-family:Inter,sans-serif;overflow:hidden}body>div,body>div *{box-sizing:border-box;display:flex}`,
-                        }}
-                      />
-                      {live?.element ? <live.element /> : null}
-                    </>,
-                    iframeNode
-                  )}
-              </iframe>
-            ) : renderType === "png" && objectURL ? (
+            {renderType === "png" && objectURL ? (
               <img
                 src={objectURL}
                 width={width}
                 height={height}
-                style={{
-                  transform: `scale(${scaleRatio})`,
-                }}
-                alt="Preview"
-              />
-            ) : renderType === "pdf" && objectURL ? (
-              <iframe
-                key="pdf"
-                width={width}
-                height={height}
-                src={
-                  objectURL +
-                  "#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0"
+                style={
+                  {
+                    // transform: `scale(${scaleRatio})`,
+                  }
                 }
-                style={{
-                  transform: `scale(${scaleRatio})`,
-                }}
+                alt="Preview"
               />
             ) : null}
           </div>
           <footer>
             <span className="ellipsis">
-              {renderType === "html"
-                ? "[HTML] Rendered."
-                : `[${renderType.toUpperCase()}] Generated in `}
+              {`[${renderType.toUpperCase()}] Generated in `}
             </span>
             <span className="data">
-              {renderType === "html"
-                ? ""
-                : `${~~(renderedTimeSpent * 100) / 100}ms.`}
-              {renderType === "pdf" || renderType === "png" ? (
+              {`${~~(renderedTimeSpent * 100) / 100}ms.`}
+              {renderType === "png" ? (
                 <>
                   {" "}
                   <a href={objectURL ?? ""} target="_blank" rel="noreferrer">

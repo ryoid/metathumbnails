@@ -190,7 +190,7 @@ type PrimitivePreviewProps = React.ComponentPropsWithoutRef<"div">;
 type PreviewProps = Omit<PrimitivePreviewProps, "children">;
 
 const NAME = "Preview";
-const RootCn = "form-control flex flex-col gap-1.5 w-full";
+const RootCn = "";
 
 // For sharing & resuming.
 const currentOptions = {};
@@ -229,7 +229,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
       const [w, h] = sizeRef.current;
       const innerWidth = window.innerWidth;
       const containerWidth =
-        innerWidth < 600 ? innerWidth - 20 : innerWidth / 2 - 15;
+        innerWidth < 600 ? innerWidth - 20 : innerWidth / 2;
       const containerHeight = (containerWidth * 9) / 16;
       setScaleRatio(
         Math.min(1, Math.min(containerWidth / w, containerHeight / h))
@@ -251,7 +251,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
       const onResize = () => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-          updateScaleRatio();
+          // updateScaleRatio();
         }, 50);
       };
       window.addEventListener("resize", onResize);
@@ -474,6 +474,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
         ref={forwardedRef}
       >
         {/* <code className="text-xs">{JSON.stringify(f, null, 2)}</code> */}
+        {/* Controls */}
         <div className="flex gap-2">
           <button
             className={cn("rounded px-2 font-semibold hover:bg-gray-700", {
@@ -493,7 +494,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
           </button>
         </div>
 
-        <div className="preview-card">
+        <div className="relative aspect-video h-full w-full">
           {/* {live?.error || renderError ? (
             <div className="error">
               <pre>{live?.error || renderError}</pre>
@@ -507,12 +508,12 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
           )}
           {loadingResources ? spinner : null}
           <div
-            className="svg-container h-full"
+            className="absolute inset-0 "
             dangerouslySetInnerHTML={
               renderType !== "svg"
                 ? undefined
                 : {
-                    __html: `<div style="position:absolute;width:${width}px;height:${height}px;transform:scale(${scaleRatio});display:flex;align-items:center;justify-content:center">${result}</div>`,
+                    __html: `<div class="absolute inset-0 flex items-center justify-center overflow-hidden" style="">${result}</div>`,
                   }
             }
           >
@@ -521,50 +522,40 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                 src={objectURL}
                 width={width}
                 height={height}
-                style={{
-                  transform: `scale(${scaleRatio})`,
-                }}
-                alt="Preview"
-              />
-            ) : renderType === "pdf" && objectURL ? (
-              <iframe
-                key="pdf"
-                width={width}
-                height={height}
-                src={
-                  objectURL +
-                  "#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0"
+                style={
+                  {
+                    // transform: `scale(${scaleRatio})`,
+                  }
                 }
-                style={{
-                  transform: `scale(${scaleRatio})`,
-                }}
+                className="object-contain"
+                alt="Preview"
               />
             ) : null}
           </div>
-          <footer>
-            <span className="ellipsis">
-              {renderType === "html"
-                ? "[HTML] Rendered."
-                : `[${renderType.toUpperCase()}] Generated in `}
-            </span>
-            <span className="data">
-              {renderType === "html"
-                ? ""
-                : `${~~(renderedTimeSpent * 100) / 100}ms.`}
-              {renderType === "pdf" || renderType === "png" ? (
-                <>
-                  {" "}
-                  <a href={objectURL ?? ""} target="_blank" rel="noreferrer">
-                    (View in New Tab ↗)
-                  </a>
-                </>
-              ) : (
-                ""
-              )}
-            </span>
-            <span>{`[${width}×${height}]`}</span>
-          </footer>
         </div>
+        <footer>
+          <span className="ellipsis">
+            {renderType === "html"
+              ? "[HTML] Rendered."
+              : `[${renderType.toUpperCase()}] Generated in `}
+          </span>
+          <span className="data">
+            {renderType === "html"
+              ? ""
+              : `${~~(renderedTimeSpent * 100) / 100}ms.`}
+            {renderType === "pdf" || renderType === "png" ? (
+              <>
+                {" "}
+                <a href={objectURL ?? ""} target="_blank" rel="noreferrer">
+                  (View in New Tab ↗)
+                </a>
+              </>
+            ) : (
+              ""
+            )}
+          </span>
+          <span>{`[${width}×${height}]`}</span>
+        </footer>
       </div>
     );
   }

@@ -25,4 +25,29 @@ const isSSR = typeof window === "undefined";
 
 const PERSIST_KEY = "gmail-form";
 
-export const formAtom = atom<GmailFormState>(InitialGmailFormState);
+function atomWithLocalStorage<T>(key: string, initialValue: GmailFormState) {
+  const getInitialValue = () => {
+    if (isSSR) return initialValue;
+    const item = localStorage.getItem(key);
+    if (item !== null) {
+      return JSON.parse(item);
+    }
+    return initialValue;
+  };
+  const baseAtom = atom<T>(getInitialValue());
+  const derivedAtom = atom(
+    (get) => get(baseAtom),
+    (get, set, update) => {
+      const nextValue =
+        typeof update === "function" ? update(get(baseAtom)) : update;
+      set(baseAtom as any, nextValue);
+      localStorage.setItem(key, JSON.stringify(nextValue));
+    }
+  );
+  return derivedAtom;
+}
+
+export const gmailAtom = atomWithLocalStorage<GmailFormState>(
+  PERSIST_KEY,
+  InitialGmailFormState
+);

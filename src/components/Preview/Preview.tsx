@@ -3,13 +3,12 @@ import React from "react";
 import cn from "clsx";
 import { useAtom } from "jotai";
 
-import { formAtom } from "../../store/form";
+import { gmailAtom } from "../../store/form";
 
-import satori from "satori";
 import { createIntlSegmenterPolyfill } from "intl-segmenter-polyfill";
 
 import { loadEmoji, getIconCode, apis } from "../../utils/twemoji";
-import { GmailTemplate, RenderGmailTemplate } from "../Gmail";
+import { RenderGmailTemplate } from "../Gmail";
 
 // @TODO: Support font style and weights, and make this option extensible rather
 // than built-in.
@@ -199,7 +198,7 @@ const overrideOptions: any = null;
 
 const Preview = React.forwardRef<PreviewElement, PreviewProps>(
   (props, forwardedRef) => {
-    const [f] = useAtom(formAtom);
+    const [f] = useAtom(gmailAtom);
 
     const [options, setOptions] = React.useState<any | object | null>(null);
     const [debug, setDebug] = React.useState(false);
@@ -294,6 +293,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                 loadAdditionalAsset: (...args: string[]) =>
                   loadDynamicAsset(emojiType, ...args),
               });
+
               if (renderType === "png") {
                 const url = (await renderPNG?.({
                   svg: _result,

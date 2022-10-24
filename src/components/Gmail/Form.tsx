@@ -10,14 +10,14 @@ import {
   Textarea,
 } from "../basic";
 import InputTag from "../basic/InputTag";
-import { formAtom } from "../../store/form";
+import { gmailAtom } from "../../store/form";
 
 type GmailFormElement = React.ElementRef<"form">;
 type PrimitiveGmailFormProps = React.ComponentPropsWithoutRef<"form">;
 type GmailFormProps = PrimitiveGmailFormProps;
 
 const GmailForm: React.FC<GmailFormProps> = (props) => {
-  const [f, setForm] = useAtom(formAtom);
+  const [f, setForm] = useAtom(gmailAtom);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

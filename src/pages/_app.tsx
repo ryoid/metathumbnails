@@ -4,6 +4,7 @@ import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
 import type { AppType } from "next/app";
+import { Toaster } from "react-hot-toast";
 import { trpc } from "../utils/trpc";
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -38,6 +39,20 @@ const MyApp: AppType<{ session: Session | null }> = ({
           crossOrigin="anonymous"
         />
       </Head>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        toastOptions={{
+          // Define default options
+          className: "",
+          style: {
+            background: "rgb(63, 63, 70)",
+            color: "#fff",
+          },
+        }}
+      />
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>

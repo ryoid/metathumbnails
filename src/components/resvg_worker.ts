@@ -1,4 +1,5 @@
 import * as resvg from "@resvg/resvg-wasm";
+import { LRUCache } from "../utils/cache";
 
 let initPromise: Promise<any>;
 (() => {
@@ -7,9 +8,20 @@ let initPromise: Promise<any>;
   );
 })();
 
+const cache = new LRUCache();
+
 self.onmessage = async (e) => {
   await initPromise;
   const { svg, width, _id } = e.data;
+  if (cache.get(width + svg)) {
+    self.postMessage({
+      url: URL.createObjectURL(cache.get(width + svg)),
+      blob: cache.get(width + svg),
+      _id,
+      cached: true,
+    });
+    return;
+  }
 
   const renderer = new resvg.Resvg(svg, {
     fitTo: {
@@ -19,6 +31,11 @@ self.onmessage = async (e) => {
   });
   const pngData = renderer.render();
   const pngBuffer = pngData.asPng();
-  const url = URL.createObjectURL(new Blob([pngBuffer], { type: "image/png" }));
-  self.postMessage({ _id, url });
+  const blob = new Blob([pngBuffer], { type: "image/png" });
+  cache.set(width + svg, blob);
+
+  const url = URL.createObjectURL(blob);
+  self.postMessage({ _id, url, blob });
+
+  pngData.free();
 };

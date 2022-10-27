@@ -1,23 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import cn from "clsx";
-import { useAtom } from "jotai";
-import { SatoriOptions } from "satori";
+import { useAtom, WritableAtom } from "jotai";
 import { createIntlSegmenterPolyfill } from "intl-segmenter-polyfill";
 
 import { useDebounce } from "../../utils/debounce";
 import { loadEmoji, getIconCode, apis } from "../../utils/twemoji";
-import { gmailAtom } from "../../store/form";
-import { RenderGmailTemplate } from "../templates/Gmail";
 import { Button, Skeleton } from "../basic";
 
-import { TemplateType } from "./const";
-
-const TEMPLATE_FN: Record<
-  TemplateType,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (props: any, options: SatoriOptions) => Promise<string>
-> = { gmail: RenderGmailTemplate };
+import { TemplateType, TemplateRenderer } from "../templates";
+import { toast } from "react-hot-toast";
+import { CopyIcon } from "../icons";
 
 // @TODO: Support font style and weights, and make this option extensible rather
 // than built-in.
@@ -171,11 +164,10 @@ function initResvgWorker() {
 
   const pending = new Map();
   worker.onmessage = (e) => {
-    const { _id, url } = e.data;
-    const resolve = pending.get(_id);
+    const resolve = pending.get(e.data._id);
     if (resolve) {
-      resolve(url);
-      pending.delete(_id);
+      resolve(e.data);
+      pending.delete(e.data._id);
     }
   };
 
@@ -185,7 +177,7 @@ function initResvgWorker() {
       ...msg,
       _id,
     });
-    return new Promise((resolve) => {
+    return new Promise<{ url: string; blob: any }>((resolve) => {
       pending.set(_id, resolve);
     });
   };
@@ -197,7 +189,8 @@ const renderPNG = initResvgWorker();
 type PreviewElement = React.ElementRef<"div">;
 type PrimitivePreviewProps = React.ComponentPropsWithoutRef<"div">;
 type PreviewProps = Omit<PrimitivePreviewProps, "children"> & {
-  template?: TemplateType;
+  template: TemplateType;
+  formAtom: WritableAtom<any, any>;
 };
 
 const NAME = "Preview";
@@ -207,15 +200,18 @@ const currentOptions = {};
 const overrideOptions: any = null;
 
 const Preview = React.forwardRef<PreviewElement, PreviewProps>(
-  ({ template = "gmail", ...props }, forwardedRef) => {
-    const [f] = useAtom(gmailAtom);
+  ({ template = "gmail", formAtom, ...props }, forwardedRef) => {
+    const [f] = useAtom(formAtom);
 
     const [options, setOptions] = React.useState<any | object | null>(null);
     const [debug, setDebug] = React.useState(false);
     const [fontEmbed, setFontEmbed] = React.useState(true);
     const [emojiType, setEmojiType] = React.useState("twemoji");
 
-    const [imageResult, setImageResult] = React.useState<string | null>(null);
+    const [imageResult, setImageResult] = React.useState<{
+      url: string;
+      blob: any;
+    } | null>(null);
     const [imageLoading, setImageLoading] = React.useState<boolean>(false);
     const [imageError, setImageError] = React.useState<string>();
 
@@ -233,6 +229,10 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
         setFontEmbed(!!overrideOptions.fontEmbed);
       }
     }, [overrideOptions]);
+
+    React.useEffect(() => {
+      setHeight(template === "twitter" ? 880 : 9 * 120);
+    }, [template]);
 
     const sizeRef = React.useRef<[number, number]>([width, height]);
     sizeRef.current = [width, height];
@@ -259,7 +259,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
 
         if (options) {
           try {
-            _result = await TEMPLATE_FN[template](f, {
+            _result = await TemplateRenderer[template](f, {
               ...options,
               embedFont: fontEmbed,
               width,
@@ -300,27 +300,27 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
         if (cancelled) return;
 
         try {
-          const url = (await renderPNG?.({
+          const _result = await renderPNG?.({
             svg: debouncedResult,
-            width,
-          })) as string;
+            width: width,
+          });
 
           if (!cancelled) {
-            setImageResult(url);
+            setImageResult(_result ?? null);
             // After rendering the PNG @1x quickly, we render the PNG @2x for
             // the playground only to make it look less blurry.
             // We only do that for images that are not too big (1200^2).
             // if (width * height <= 1440000) {
-            setTimeout(async () => {
-              if (cancelled) return;
-              const _url = (await renderPNG?.({
-                svg: debouncedResult,
-                width: width * 2,
-              })) as string;
+            // setTimeout(async () => {
+            //   if (cancelled) return;
+            //   const _url = (await renderPNG?.({
+            //     svg: debouncedResult,
+            //     width: width,
+            //   })) as string;
 
-              if (cancelled) return;
-              setImageResult(_url);
-            }, 20);
+            //   if (cancelled) return;
+            //   setImageResult(_url);
+            // }, 20);
             // }
           }
         } catch (e: any) {
@@ -344,7 +344,11 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
           <div
             {...props}
             className={cn(
-              "relative aspect-video h-full w-full",
+              "relative h-full w-full",
+              {
+                "aspect-[218/100]": template === "twitter",
+                "aspect-video": template === "gmail",
+              },
               props.className
             )}
             ref={forwardedRef}
@@ -365,7 +369,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
               {showImage && (
                 <div className="absolute inset-0 z-10">
                   <img
-                    src={imageResult}
+                    src={imageResult.url}
                     width={width}
                     height={height}
                     className="object-contain"
@@ -405,7 +409,12 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
               <div className="flex gap-2">
                 <Skeleton title="Generating thumbnail">
                   <Button className="pointer-events-none" tabIndex={-1}>
-                    <span className="opacity-0">🔗 Open Image</span>
+                    <span className="h-4 w-4 opacity-0"></span>
+                  </Button>
+                </Skeleton>
+                <Skeleton title="Generating thumbnail">
+                  <Button className="pointer-events-none" tabIndex={-1}>
+                    <span className="opacity-0">🔗 Open</span>
                   </Button>
                 </Skeleton>
                 <Skeleton title="Generating thumbnail">
@@ -419,16 +428,29 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
               </div>
             ) : (
               <div className="flex gap-2">
+                <Button
+                  color="gray"
+                  className="group"
+                  onClick={async () => {
+                    await navigator.clipboard.write([
+                      new ClipboardItem({ "image/png": imageResult.blob }),
+                    ]);
+                    toast.success("Copied image clipboard");
+                  }}
+                  title="Copy image to clipboard"
+                >
+                  <CopyIcon className="text-gray-400 group-hover:text-white" />
+                </Button>
                 <a
-                  href={imageResult ?? ""}
+                  href={imageResult.url ?? ""}
                   target="_blank"
                   rel="noreferrer"
                   tabIndex={-1}
                 >
-                  <Button color="gray">🔗 Open Image</Button>
+                  <Button color="gray">🔗 Open</Button>
                 </a>
                 <a
-                  href={imageResult ?? ""}
+                  href={imageResult.url ?? ""}
                   download={`image.png`}
                   tabIndex={-1}
                 >
@@ -438,11 +460,11 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
             )}
           </div>
           <div className="flex items-center text-sm text-gray-400">
-            {imageLoading ? (
+            {imageError ? null : imageLoading || !imageResult ? (
               <span>Generating thumbnail...</span>
-            ) : !imageError ? (
+            ) : (
               <span className="text-emerald-500">Get your thumbnail ↑</span>
-            ) : null}
+            )}
           </div>
         </div>
         <hr className="border-gray-700 lg:hidden" />

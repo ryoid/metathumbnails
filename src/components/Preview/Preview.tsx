@@ -404,11 +404,8 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
             ) : imageLoading || !imageResult ? (
               <div className="flex gap-2">
                 <Skeleton title="Generating thumbnail">
-                  <Button
-                    className="pointer-events-none text-transparent"
-                    tabIndex={-1}
-                  >
-                    🔗 Open Image
+                  <Button className="pointer-events-none" tabIndex={-1}>
+                    <span className="text-transparent">🔗 Open Image</span>
                   </Button>
                 </Skeleton>
                 <Skeleton title="Generating thumbnail">
@@ -416,7 +413,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                     className="pointer-events-none text-transparent"
                     tabIndex={-1}
                   >
-                    💾 Save Image
+                    <span className="text-transparent">💾 Save Image</span>
                   </Button>
                 </Skeleton>
               </div>

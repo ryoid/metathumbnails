@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { GmailForm } from "../components/Gmail";
+import { GmailForm } from "../components/templates/Gmail";
 import { Preview } from "../components/Preview";
 
 const Header = () => (

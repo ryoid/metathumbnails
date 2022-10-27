@@ -8,9 +8,9 @@ import {
   Label,
   SuggestionPill,
   Textarea,
-} from "../basic";
-import InputTag from "../basic/InputTag";
-import { gmailAtom } from "../../store/form";
+} from "../../basic";
+import InputTag from "../../basic/InputTag";
+import { gmailAtom } from "../../../store/form";
 
 type GmailFormElement = React.ElementRef<"form">;
 type PrimitiveGmailFormProps = React.ComponentPropsWithoutRef<"form">;

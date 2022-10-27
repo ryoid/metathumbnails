@@ -2,7 +2,7 @@
 import React from "react";
 import satori, { SatoriOptions } from "satori";
 
-import { GmailFormState } from "../../store/form";
+import { GmailFormState } from "../../../store/form";
 
 type PrimitiveGmailTemplateProps = React.ComponentPropsWithoutRef<"div">;
 type GmailTemplateProps = GmailFormState;

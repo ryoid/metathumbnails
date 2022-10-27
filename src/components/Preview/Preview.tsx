@@ -2,17 +2,22 @@
 import React from "react";
 import cn from "clsx";
 import { useAtom } from "jotai";
-import { useDebounce } from "../../utils/debounce";
-
-import { gmailAtom } from "../../store/form";
-
+import { SatoriOptions } from "satori";
 import { createIntlSegmenterPolyfill } from "intl-segmenter-polyfill";
 
+import { useDebounce } from "../../utils/debounce";
 import { loadEmoji, getIconCode, apis } from "../../utils/twemoji";
-import { RenderGmailTemplate } from "../Gmail";
+import { gmailAtom } from "../../store/form";
+import { RenderGmailTemplate } from "../templates/Gmail";
 import { Button, Skeleton } from "../basic";
 
-const TEMPLATE_FN = { gmail: RenderGmailTemplate };
+import { TemplateType } from "./const";
+
+const TEMPLATE_FN: Record<
+  TemplateType,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (props: any, options: SatoriOptions) => Promise<string>
+> = { gmail: RenderGmailTemplate };
 
 // @TODO: Support font style and weights, and make this option extensible rather
 // than built-in.
@@ -191,7 +196,9 @@ const renderPNG = initResvgWorker();
 
 type PreviewElement = React.ElementRef<"div">;
 type PrimitivePreviewProps = React.ComponentPropsWithoutRef<"div">;
-type PreviewProps = Omit<PrimitivePreviewProps, "children">;
+type PreviewProps = Omit<PrimitivePreviewProps, "children"> & {
+  template?: TemplateType;
+};
 
 const NAME = "Preview";
 
@@ -200,7 +207,7 @@ const currentOptions = {};
 const overrideOptions: any = null;
 
 const Preview = React.forwardRef<PreviewElement, PreviewProps>(
-  (props, forwardedRef) => {
+  ({ template = "gmail", ...props }, forwardedRef) => {
     const [f] = useAtom(gmailAtom);
 
     const [options, setOptions] = React.useState<any | object | null>(null);
@@ -252,7 +259,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
 
         if (options) {
           try {
-            _result = await TEMPLATE_FN["gmail"](f, {
+            _result = await TEMPLATE_FN[template](f, {
               ...options,
               embedFont: fontEmbed,
               width,
@@ -284,7 +291,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
       return () => {
         cancelled = true;
       };
-    }, [f, options, width, height, debug, emojiType, fontEmbed]);
+    }, [f, options, width, height, debug, emojiType, fontEmbed, template]);
 
     React.useEffect(() => {
       let cancelled = false;

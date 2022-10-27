@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import LiveCode from "../components/LiveCode";
 
 import { trpc } from "../utils/trpc";
 

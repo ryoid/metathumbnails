@@ -277,6 +277,8 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
           fontEmbed,
         });
         setResult(_result);
+        setImageResult(null);
+        setImageLoading(true);
       })();
 
       return () => {
@@ -285,9 +287,6 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
     }, [f, options, width, height, debug, emojiType, fontEmbed]);
 
     React.useEffect(() => {
-      setImageResult(null);
-      setImageLoading(true);
-
       let cancelled = false;
 
       (async () => {
@@ -397,7 +396,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
               <span>{imageError}</span>
             ) : imageLoading || !imageResult ? (
               <div className="flex gap-2">
-                <Skeleton title="Generating PNG">
+                <Skeleton title="Generating thumbnail">
                   <Button
                     className="pointer-events-none text-transparent"
                     tabIndex={-1}
@@ -405,7 +404,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                     🔗 Open Image
                   </Button>
                 </Skeleton>
-                <Skeleton title="Generating PNG">
+                <Skeleton title="Generating thumbnail">
                   <Button
                     className="pointer-events-none text-transparent"
                     tabIndex={-1}
@@ -436,7 +435,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
           </div>
           <div className="flex items-center text-sm text-gray-400">
             {imageLoading ? (
-              <span>Generating Thumbnail...</span>
+              <span>Generating thumbnail...</span>
             ) : !imageError ? (
               <span className="text-emerald-500">Get your thumbnail ↑</span>
             ) : null}

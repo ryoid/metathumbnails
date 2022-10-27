@@ -397,7 +397,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-end gap-2">
           <div>
             {imageError ? (
               <span>{imageError}</span>

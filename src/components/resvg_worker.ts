@@ -1,15 +1,14 @@
 import * as resvg from "@resvg/resvg-wasm";
 
-let initialized = false;
-(async () => {
-  await resvg.initWasm(
+let initPromise: Promise<any>;
+(() => {
+  initPromise = resvg.initWasm(
     fetch("https://unpkg.com/@resvg/resvg-wasm/index_bg.wasm")
   );
-  initialized = true;
 })();
 
-self.onmessage = (e) => {
-  if (!initialized) throw new Error("Resvg worker not initialized");
+self.onmessage = async (e) => {
+  await initPromise;
   const { svg, width, _id } = e.data;
 
   const renderer = new resvg.Resvg(svg, {

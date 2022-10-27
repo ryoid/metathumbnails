@@ -79,29 +79,34 @@ const GmailForm: React.FC<GmailFormProps> = (props) => {
         Email
       </h3>
 
-      <FormControl>
-        <Label htmlFor="body">Words</Label>
-        <Textarea
-          id="body"
-          value={f.body}
-          rows={8}
-          onChange={handleInputChange}
-        />
-      </FormControl>
+      <div className="flex flex-col gap-2">
+        <FormControl>
+          <Label htmlFor="body">Words</Label>
+          <Textarea
+            id="body"
+            value={f.body}
+            rows={8}
+            onChange={handleInputChange}
+          />
+        </FormControl>
 
-      <FormControl>
-        <Label htmlFor="suggestions">Suggestion Pills</Label>
-        <InputTag
-          id="suggestions"
-          placeholder="Add a suggestion"
-          defaultValue={f.suggestions}
-          tag={SuggestionPill}
-          tagCn="text-blue-500"
-          onChange={(values) => {
-            setForm((s) => ({ ...s, suggestions: values.map((v) => v.value) }));
-          }}
-        />
-      </FormControl>
+        <FormControl>
+          <Label htmlFor="suggestions">Suggestion Pills</Label>
+          <InputTag
+            id="suggestions"
+            placeholder="Add a suggestion"
+            defaultValue={f.suggestions}
+            tag={SuggestionPill}
+            tagCn="text-blue-500"
+            onChange={(values) => {
+              setForm((s) => ({
+                ...s,
+                suggestions: values.map((v) => v.value),
+              }));
+            }}
+          />
+        </FormControl>
+      </div>
     </form>
   );
 };

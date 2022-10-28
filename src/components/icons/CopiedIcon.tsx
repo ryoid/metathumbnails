@@ -25,3 +25,5 @@ const CopiedIcon = React.forwardRef<IconElement, PrimitiveIconProps>(
 );
 
 CopiedIcon.displayName = "CopiedIcon";
+
+export default CopiedIcon;

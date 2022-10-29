@@ -9,10 +9,13 @@ import {
   formatDistanceToNowStrict,
   format,
 } from "date-fns";
+import { LRUCache } from "../../../utils/cache";
 
 type GmailTemplateProps = GmailFormState;
 
-const RenderGmailTemplate = (
+const cache = new LRUCache();
+
+const RenderGmailTemplate = async (
   props: GmailTemplateProps,
   options: SatoriOptions
 ) => {
@@ -22,7 +25,10 @@ const RenderGmailTemplate = (
   const bodyColor = props.theme == "dark" ? "white" : "#202020";
   const secondaryColor = props.theme == "dark" ? "#7E8E9B" : "#5B7083";
   const borderColor = props.theme == "dark" ? "#2D3942" : "#737373";
-  return satori(
+
+  const cachedResult = cache.get([props, options]);
+  if (cachedResult) return cachedResult;
+  const result = await satori(
     <div
       style={{
         backgroundColor: props.theme == "dark" ? "black" : "white",
@@ -176,6 +182,8 @@ const RenderGmailTemplate = (
     </div>,
     options
   );
+  cache.set([props, options], result);
+  return result;
 };
 
 export default RenderGmailTemplate;

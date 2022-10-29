@@ -3,10 +3,13 @@ import satori, { SatoriOptions } from "satori";
 import format from "date-fns/format";
 
 import { TwitterFormState, DEFAULT_AVATAR } from "../../../store/form/twitter";
+import { LRUCache } from "../../../utils/cache";
 
 type TwitterTemplateProps = TwitterFormState;
 
-const RenderTwitterTemplate = (
+const cache = new LRUCache(10);
+
+const RenderTwitterTemplate = async (
   props: TwitterTemplateProps,
   options: SatoriOptions
 ) => {
@@ -16,7 +19,10 @@ const RenderTwitterTemplate = (
   const color = props.theme == "dark" ? "white" : "black";
   const secondaryColor = props.theme == "dark" ? "#7E8E9B" : "#5B7083";
   const borderColor = props.theme == "dark" ? "#2D3942" : "#D7DEE3";
-  return satori(
+
+  const cachedResult = cache.get([props, options]);
+  if (cachedResult) return cachedResult;
+  const result = await satori(
     <div
       style={{
         backgroundColor: props.theme == "dark" ? "#15202B" : "white",
@@ -200,6 +206,8 @@ const RenderTwitterTemplate = (
     </div>,
     options
   );
+  cache.set([props, options], result);
+  return result;
 };
 
 export default RenderTwitterTemplate;

@@ -1,15 +1,13 @@
 // src/pages/_app.tsx
 import "../styles/globals.css";
 import Head from "next/head";
-import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
 import type { AppType } from "next/app";
 import { Toaster } from "react-hot-toast";
-import { trpc } from "../utils/trpc";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps,
 }) => {
   return (
     <>
@@ -53,11 +51,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
           },
         }}
       />
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      <Component {...pageProps} />
     </>
   );
 };
 
-export default trpc.withTRPC(MyApp);
+export default MyApp;

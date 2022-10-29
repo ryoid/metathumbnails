@@ -20,6 +20,7 @@ const TemplateConfigurator: React.FC<TemplateConfiguratorProps> = ({
   ...props
 }) => {
   const TemplateFormComponent = _TemplateFormComponent[template];
+
   return (
     <div {...props} className={cn("block", props.className)}>
       <h2 className="my-5 text-xl font-semibold tracking-wide">

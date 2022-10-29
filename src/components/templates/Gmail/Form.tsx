@@ -15,6 +15,7 @@ import {
 import { gmailAtom } from "../../../store/form";
 import {
   DEFAULT_AVATAR,
+  getInitialValue,
   InitialGmailFormState,
 } from "../../../store/form/gmail";
 
@@ -25,6 +26,13 @@ type GmailFormProps = PrimitiveGmailFormProps;
 const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
   (props, forwardedRef) => {
     const [f, setForm] = useAtom(gmailAtom);
+
+    React.useEffect(() => {
+      if (typeof window !== undefined) {
+        setForm(getInitialValue());
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleInputChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

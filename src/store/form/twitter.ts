@@ -1,5 +1,6 @@
 import { atom, WritableAtom } from "jotai";
 import { dateToLocaleISOString, initalDate } from "../../utils/date";
+import { atomWithLocalStorage, getInitialFormState } from "./util";
 
 export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
@@ -36,37 +37,10 @@ export const InitialTwitterFormState: TwitterFormState = {
   body: "Come to my office. Now.",
 };
 
-const isSSR = typeof window === "undefined";
-
 const PERSIST_KEY = "twitter-form";
 
-function atomWithLocalStorage<T>(key: string, initialValue: TwitterFormState) {
-  const getInitialValue = () => {
-    if (isSSR) return initialValue;
-    const item = localStorage.getItem(key);
-    if (item !== null) {
-      const data = JSON.parse(item);
-      if (data.avatar?.startsWith("blob:")) {
-        data.avatar = undefined;
-      }
-      return data;
-    }
-    return initialValue;
-  };
-  const baseAtom = atom<T>(getInitialValue());
-  const derivedAtom = atom(
-    (get) => get(baseAtom),
-    (get, set, update: ((s: T) => T) | T) => {
-      const nextValue =
-        typeof update === "function"
-          ? (update as (s: T) => T)(get(baseAtom))
-          : update;
-      set(baseAtom as WritableAtom<T, T, void | Promise<void>>, nextValue);
-      localStorage.setItem(key, JSON.stringify(nextValue));
-    }
-  );
-  return derivedAtom;
-}
+export const getInitialValue = () =>
+  getInitialFormState(PERSIST_KEY, InitialTwitterFormState);
 
 export const twitterAtom = atomWithLocalStorage<TwitterFormState>(
   PERSIST_KEY,

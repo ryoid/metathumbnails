@@ -17,34 +17,41 @@ const RenderGmailTemplate = (
   options: SatoriOptions
 ) => {
   const date = new Date(props.date);
+
+  const color = props.theme == "dark" ? "white" : "black";
+  const bodyColor = props.theme == "dark" ? "white" : "#202020";
+  const secondaryColor = props.theme == "dark" ? "#7E8E9B" : "#5B7083";
+  const borderColor = props.theme == "dark" ? "#2D3942" : "#737373";
   return satori(
     <div
       style={{
-        backgroundColor: "white",
-        color: "black",
+        backgroundColor: props.theme == "dark" ? "black" : "white",
+        color: color,
         display: "flex",
+        flexDirection: "row",
         gap: "2px",
         height: "100%",
         width: "100%",
-        paddingTop: 40,
-        paddingRight: 4,
-        paddingBottom: 4,
-        paddingLeft: 4,
+        paddingTop: 74,
+        paddingRight: 38,
+        paddingBottom: 38,
+        paddingLeft: 38,
+        fontSize: 52,
       }}
     >
       <div
         style={{
           display: "flex",
+          width: 240,
         }}
       >
         <img
           style={{
-            borderRadius: 128,
+            borderRadius: 240,
             objectFit: "cover",
-            border: "5px solid black",
           }}
-          height={128}
-          width={128}
+          height={240}
+          width={240}
           src={
             props.avatar && props.avatar !== "" ? props.avatar : DEFAULT_AVATAR
           }
@@ -55,21 +62,30 @@ const RenderGmailTemplate = (
         style={{
           display: "flex",
           flexDirection: "column",
-          marginLeft: "2rem",
+          paddingLeft: 50,
+          paddingRight: 240,
+          width: "100%",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+          }}
+        >
           <div
             style={{
               display: "flex",
+              alignItems: "center",
               justifyContent: "space-between",
+              width: "100%",
             }}
           >
             <div
               style={{
                 fontWeight: "bold",
-                color: "#1F1F1F",
-                fontSize: 32,
+                fontSize: 120,
               }}
             >
               {props.from}
@@ -77,8 +93,8 @@ const RenderGmailTemplate = (
             <div
               style={{
                 display: "flex",
-                color: "#222222",
-                fontSize: 32,
+                color: secondaryColor,
+                fontSize: 70,
               }}
             >
               {isToday(date)
@@ -99,22 +115,29 @@ const RenderGmailTemplate = (
           <div
             style={{
               display: "flex",
-              color: "#222222",
-              fontSize: 32,
+              color: secondaryColor,
+              fontSize: 90,
+              paddingBottom: 8,
             }}
           >
-            to {props.to} <span>[v]</span>
+            to {props.to}{" "}
+            <span>
+              <svg width={110} height={110} viewBox="0 0 24 24">
+                <path fill="#222" d="m7 10l5 5l5-5z"></path>
+              </svg>
+            </span>
           </div>
         </div>
         <div
           style={{
             whiteSpace: "pre-wrap",
-            color: "#222222",
+            color: bodyColor,
             fontWeight: 500,
-            fontSize: 50,
+            fontSize: 112,
             letterSpacing: -1,
             marginTop: "2rem",
             marginBottom: "2rem",
+            minHeight: 320,
           }}
         >
           {props.body}
@@ -123,7 +146,7 @@ const RenderGmailTemplate = (
           style={{
             display: "flex",
             flexWrap: "wrap",
-            fontSize: 40,
+            fontSize: 80,
             fontWeight: 500,
           }}
         >
@@ -133,11 +156,15 @@ const RenderGmailTemplate = (
                 key={suggestion}
                 style={{
                   color: "#005DCD",
-                  padding: "1rem 2.5rem",
-                  border: "2px solid #787878",
-                  borderRadius: "1.3rem",
-                  marginTop: "0.7rem",
-                  marginLeft: i !== 0 ? "1.25rem" : "",
+                  borderColor: borderColor,
+                  borderWidth: 8,
+                  borderStyle: "solid",
+                  borderRadius: 34,
+                  paddingTop: 45,
+                  paddingBottom: 45,
+                  paddingLeft: 90,
+                  paddingRight: 90,
+                  marginLeft: i !== 0 ? 82 : 0,
                 }}
               >
                 {suggestion}

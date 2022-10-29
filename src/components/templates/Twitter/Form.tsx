@@ -16,6 +16,7 @@ import { twitterAtom } from "../../../store/form";
 import {
   InitialTwitterFormState,
   DEFAULT_AVATAR,
+  getInitialValue,
 } from "../../../store/form/twitter";
 
 type TwitterFormElement = React.ElementRef<"form">;
@@ -25,6 +26,13 @@ type TwitterFormProps = PrimitiveTwitterFormProps;
 const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
   (props, forwardedRef) => {
     const [f, setForm] = useAtom(twitterAtom);
+
+    React.useEffect(() => {
+      if (typeof window !== undefined) {
+        setForm(getInitialValue());
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleInputChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

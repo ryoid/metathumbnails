@@ -65,6 +65,12 @@ async function init() {
     },
     {
       name: "Inter",
+      data: font,
+      weight: 500,
+      style: "normal",
+    },
+    {
+      name: "Inter",
       data: fontBold,
       weight: 700,
       style: "normal",
@@ -317,7 +323,6 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
             //     svg: debouncedResult,
             //     width: width,
             //   })) as string;
-
             //   if (cancelled) return;
             //   setImageResult(_url);
             // }, 20);

@@ -1,13 +1,14 @@
-export class LRUCache {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class LRUCache<K = any, V = any> {
   max: number;
-  cache: Map<any, any>;
+  cache: Map<K, V>;
 
   constructor(max = 10) {
     this.max = max;
     this.cache = new Map();
   }
 
-  get(key: any) {
+  get(key: K) {
     const item = this.cache.get(key);
     if (item) {
       // refresh key
@@ -17,7 +18,7 @@ export class LRUCache {
     return item;
   }
 
-  set(key: any, val: any) {
+  set(key: K, val: V) {
     // refresh key
     if (this.cache.has(key)) this.cache.delete(key);
     // evict oldest

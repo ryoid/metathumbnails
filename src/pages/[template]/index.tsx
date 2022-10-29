@@ -55,20 +55,13 @@ const TemplatePage: NextPage = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = (context) => {
+export const getStaticProps: GetStaticProps = () => {
   return {
     props: {}, // will be passed to the page component as props
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  console.log(
-    "types",
-    TemplateTypes.map((template) => ({
-      params: { template: template },
-    }))
-  );
-
   return {
     paths: TemplateTypes.map((template) => ({
       params: { template: template },

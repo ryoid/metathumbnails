@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import { TemplateType } from "./const";
 
 import GmailForm from "./Gmail/Form";

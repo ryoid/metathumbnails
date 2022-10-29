@@ -1,7 +1,8 @@
 import React from "react";
 
 // https://usehooks.com/useDebounce/
-export function useDebounce(value: any, delay: number) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useDebounce<T = any>(value: T, delay: number) {
   // State and setters for debounced value
   const [debouncedValue, setDebouncedValue] = React.useState(value);
   React.useEffect(

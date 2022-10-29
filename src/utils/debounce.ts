@@ -22,3 +22,14 @@ export function useDebounce<T = any>(value: T, delay: number) {
   );
   return debouncedValue;
 }
+
+export const debounce = (func: CallableFunction, wait: number) => {
+  let timerId: NodeJS.Timeout;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (...args: any) => {
+    if (timerId) clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      func(...args);
+    }, wait);
+  };
+};

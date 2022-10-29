@@ -18,6 +18,7 @@ import {
   getInitialValue,
   InitialGmailFormState,
 } from "../../../store/form/gmail";
+import { debounce } from "../../../utils/debounce";
 
 type GmailFormElement = React.ElementRef<"form">;
 type PrimitiveGmailFormProps = React.ComponentPropsWithoutRef<"form">;
@@ -26,10 +27,15 @@ type GmailFormProps = PrimitiveGmailFormProps;
 const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
   (props, forwardedRef) => {
     const [f, setForm] = useAtom(gmailAtom);
+    const fromFontSizeRef = React.useRef<HTMLInputElement>(null);
 
     React.useEffect(() => {
       if (typeof window !== undefined && f.ssr) {
-        setForm(getInitialValue());
+        const initial = getInitialValue();
+        setForm(initial);
+        if (fromFontSizeRef.current) {
+          fromFontSizeRef.current.value = initial.fromFontSize;
+        }
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -37,6 +43,8 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
     const handleInputChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
+      console.log("handleInputChange", e.target.value);
+
       setForm((s) => ({ ...s, [e.target.id]: e.target.value }));
     };
 
@@ -64,8 +72,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
             <input
               id="fromSize"
               type="range"
-              value={f.fromSize}
-              onChange={handleInputChange}
+              onChange={debounce(handleInputChange, 200)}
               className="range w-full"
               min={60}
               max={150}

@@ -455,7 +455,7 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
                 </a>
                 <a
                   href={imageResult.url ?? ""}
-                  download={`image.png`}
+                  download={`${template}-thumbnail.png`}
                   tabIndex={-1}
                 >
                   <Button color="indigo">💾 Save Image</Button>

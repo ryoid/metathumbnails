@@ -3,7 +3,7 @@ import cn from "clsx";
 
 type InputTextElement = React.ElementRef<"input">;
 type PrimitiveInputTextProps = React.ComponentPropsWithoutRef<"input">;
-type InputTextProps = PrimitiveInputTextProps & {
+type InputTextProps = Omit<PrimitiveInputTextProps, "size"> & {
   size?: "xs" | "sm" | "md";
 };
 

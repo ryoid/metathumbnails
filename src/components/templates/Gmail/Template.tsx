@@ -91,7 +91,7 @@ const RenderGmailTemplate = async (
             <div
               style={{
                 fontWeight: "bold",
-                fontSize: 120,
+                fontSize: props.fromSize,
               }}
             >
               {props.from}
@@ -108,14 +108,13 @@ const RenderGmailTemplate = async (
                 : isThisYear(date)
                 ? format(date, "eee, MMM M, h:mm a")
                 : format(date, "eee, MMM M, yyyy, h:mm a")}{" "}
-              (
               <span>
+                (
                 {props.time_ago && props.time_ago !== ""
                   ? props.time_ago
                   : formatDistanceToNowStrict(date)}{" "}
-                ago
+                ago)
               </span>
-              )
             </div>
           </div>
           <div

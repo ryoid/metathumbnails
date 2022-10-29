@@ -26,3 +26,27 @@
     @apply font-normal;
   }
 }
+
+@layer components {
+  .range {
+    @apply appearance-none bg-transparent;
+  }
+  .range::-webkit-slider-runnable-track {
+    @apply inline-flex h-2 cursor-pointer rounded-full bg-gray-800/75 ring-1 ring-inset ring-white/5 hover:ring-gray-700;
+  }
+  .range::-webkit-slider-thumb {
+    cursor: pointer;
+    -webkit-appearance: none;
+    @apply -mt-1.5 h-5 w-5 rounded-full bg-gray-100 ring-1 ring-inset ring-white;
+  }
+  .range:hover::-webkit-slider-thumb {
+    @apply bg-indigo-600 ring-white/10;
+  }
+  .range::-moz-range-track {
+  }
+  .range::-moz-range-thumb {
+    @apply bg-red-700;
+
+    cursor: pointer;
+  }
+}

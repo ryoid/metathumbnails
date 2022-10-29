@@ -13,6 +13,8 @@ export type GmailFormState = FormState & {
   suggestions: string[];
 
   theme: string;
+
+  fromSize: number;
 };
 
 export const InitialGmailFormState = {
@@ -27,6 +29,7 @@ export const InitialGmailFormState = {
   suggestions: ["Oh no...", "Am I getting"],
 
   theme: "light",
+  fromSize: 120,
 };
 
 const PERSIST_KEY = "gmail-form";

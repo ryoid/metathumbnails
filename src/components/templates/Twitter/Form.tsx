@@ -49,21 +49,24 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-pink-900/20 px-1.5 text-lg font-medium text-white/90">
           Template
         </h3>
-        <div>
+        <div className="mb-2">
           <label
             htmlFor="theme"
-            className="relative inline-flex cursor-pointer items-center"
+            className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-full border border-gray-800 px-2 py-2 lg:gap-1"
           >
-            <input
-              type="checkbox"
-              id="theme"
-              checked={f.theme == "dark"}
-              value={f.theme == "dark" ? "light" : "dark"}
-              className="peer sr-only"
-              onChange={handleInputChange}
-            ></input>
-            <div className="peer h-6 w-11 rounded-full bg-gray-800 ring-1 ring-inset ring-white/5 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-gray-200 after:transition-all after:content-[''] peer-checked:bg-indigo-700 peer-checked:ring-indigo-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-hover:bg-gray-700 peer-hover:ring-gray-500 peer-hover:after:bg-white peer-hover:peer-checked:bg-indigo-600 peer-checked:peer-hover:ring-indigo-300 peer-focus:outline "></div>
-            <span className="ml-3 text-sm font-medium ">Dark Mode</span>
+            <span className="ml-2 text-sm font-medium">Dark Mode</span>
+
+            <div className="relative">
+              <input
+                type="checkbox"
+                id="theme"
+                checked={f.theme == "dark"}
+                value={f.theme == "dark" ? "light" : "dark"}
+                className="peer sr-only"
+                onChange={handleInputChange}
+              ></input>
+              <div className="peer h-6 w-11 rounded-full bg-gray-800 ring-1 ring-inset ring-white/5 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-gray-200 after:transition-all after:content-[''] peer-checked:bg-indigo-700 peer-checked:ring-indigo-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-hover:bg-gray-700 peer-hover:ring-gray-500 peer-hover:after:bg-white peer-hover:peer-checked:bg-indigo-600 peer-checked:peer-hover:ring-indigo-300 peer-focus:outline "></div>
+            </div>
           </label>
         </div>
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-green-900/20 px-1.5 text-lg font-medium text-white/90">

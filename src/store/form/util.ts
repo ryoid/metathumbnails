@@ -2,9 +2,10 @@ import { atom, WritableAtom } from "jotai";
 
 export type FormState = {
   version: number;
+  ssr: number;
 };
 
-const isSSR = typeof window === "undefined";
+export const isSSR = typeof window === "undefined";
 
 export function getInitialFormState<T>(key: string, initialValue: T) {
   if (isSSR) return initialValue;

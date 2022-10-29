@@ -28,7 +28,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
     const [f, setForm] = useAtom(twitterAtom);
 
     React.useEffect(() => {
-      if (typeof window !== undefined) {
+      if (typeof window !== undefined && f.ssr) {
         setForm(getInitialValue());
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

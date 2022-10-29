@@ -28,7 +28,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
     const [f, setForm] = useAtom(gmailAtom);
 
     React.useEffect(() => {
-      if (typeof window !== undefined) {
+      if (typeof window !== undefined && f.ssr) {
         setForm(getInitialValue());
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

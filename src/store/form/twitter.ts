@@ -1,5 +1,10 @@
 import { dateToLocaleISOString, initalDate } from "../../utils/date";
-import { atomWithLocalStorage, FormState, getInitialFormState } from "./util";
+import {
+  atomWithLocalStorage,
+  FormState,
+  getInitialFormState,
+  isSSR,
+} from "./util";
 
 export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
@@ -36,6 +41,7 @@ export const InitialTwitterFormState: TwitterFormState = {
   likes: 2130,
 
   body: "Come to my office. Now.",
+  ssr: isSSR,
 };
 
 const PERSIST_KEY = "twitter-form";

@@ -1,5 +1,10 @@
 import { dateToLocaleISOString, initalDate } from "../../utils/date";
-import { atomWithLocalStorage, FormState, getInitialFormState } from "./util";
+import {
+  atomWithLocalStorage,
+  FormState,
+  getInitialFormState,
+  isSSR,
+} from "./util";
 
 export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
@@ -30,6 +35,7 @@ export const InitialGmailFormState = {
 
   theme: "light",
   fromSize: 120,
+  ssr: isSSR,
 };
 
 const PERSIST_KEY = "gmail-form";

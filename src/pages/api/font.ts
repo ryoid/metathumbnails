@@ -10,12 +10,13 @@ export default async function loadGoogleFont(req: NextRequest) {
 
   const font = searchParams.get("font");
   const text = searchParams.get("text");
+  const weights = searchParams.get("weights");
 
-  if (!font || !text) return;
+  if (!font) return;
 
-  const API = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(
-    text
-  )}`;
+  const API = `https://fonts.googleapis.com/css2?family=${font}${
+    weights ? `:wght@${weights}` : ""
+  }${text ? `&text=${encodeURIComponent(text)}` : ""}`;
 
   const css = await (
     await fetch(API, {

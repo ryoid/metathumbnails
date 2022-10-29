@@ -11,7 +11,6 @@ import { Button, Skeleton } from "../basic";
 import { TemplateType, TemplateRenderer } from "../templates";
 import { toast } from "react-hot-toast";
 import { CopyIcon } from "../icons";
-import { LRUCache } from "../../utils/cache";
 
 // @TODO: Support font style and weights, and make this option extensible rather
 // than built-in.
@@ -34,7 +33,7 @@ const languageFontMap = {
 async function init() {
   if (typeof window === "undefined") return [];
 
-  const [font, fontBold, fontIcon, Segmenter] =
+  const [font, fontBold, fontIcon, pFont, pFontSemiBold, pFontBold, Segmenter] =
     window.__resource ||
     (window.__resource = await Promise.all([
       fetch("/inter-latin-ext-400-normal.woff").then((res) =>
@@ -44,6 +43,15 @@ async function init() {
         res.arrayBuffer()
       ),
       fetch("/material-icons-base-400-normal.woff").then((res) =>
+        res.arrayBuffer()
+      ),
+      fetch("/api/font?font=Plus+Jakarta+Sans&weights=400").then((res) =>
+        res.arrayBuffer()
+      ),
+      fetch("/api/font?font=Plus+Jakarta+Sans&weights=600").then((res) =>
+        res.arrayBuffer()
+      ),
+      fetch("/api/font?font=Plus+Jakarta+Sans&weights=700").then((res) =>
         res.arrayBuffer()
       ),
       !globalThis.Intl || !globalThis.Intl.Segmenter
@@ -82,6 +90,24 @@ async function init() {
       weight: 400,
       style: "normal",
     },
+    {
+      name: "Plus Jakarta Sans",
+      data: pFont,
+      weight: 400,
+      style: "normal",
+    },
+    {
+      name: "Plus Jakarta Sans",
+      data: pFontSemiBold,
+      weight: 600,
+      style: "normal",
+    },
+    {
+      name: "Plus Jakarta Sans",
+      data: pFontBold,
+      weight: 700,
+      style: "normal",
+    },
   ];
 }
 
@@ -107,6 +133,7 @@ const loadDynamicAsset = withCache(
         btoa(await loadEmoji(emojiType, getIconCode(text)))
       );
     }
+    console.log("load font code", code);
 
     // Try to load from Google Fonts.
     if (!languageFontMap[code]) code = "unknown";

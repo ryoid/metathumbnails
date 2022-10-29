@@ -32,7 +32,7 @@ const SuggestionPill = React.forwardRef<
       {onRemove && (
         <span
           onClick={onRemove}
-          className="ml-1.5 h-full cursor-pointer rounded text-gray-300/40 hover:text-white group-hover:bg-gray-700/40 "
+          className="ml-1.5 h-5 w-5 cursor-pointer rounded text-gray-300/40 hover:text-white group-hover:bg-gray-700/40"
         >
           <CrossIcon />
         </span>

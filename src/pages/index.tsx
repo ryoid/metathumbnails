@@ -10,6 +10,7 @@ import {
   TemplateConfigurator,
   DEFAULT_TEMPLATE,
 } from "../components/templates";
+import { TemplateMeta } from "../components/templates/const";
 import { templateFormAtom } from "../store/form";
 
 const Home: NextPage = () => {
@@ -18,14 +19,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Meta YouTube Thumbnails</title>
+        <title>{TemplateMeta[DEFAULT_TEMPLATE].title}</title>
         <meta
           name="description"
-          content="Generate meta youtube thumbnails to takeover the world"
+          content={TemplateMeta[DEFAULT_TEMPLATE].description}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Layout>
         <main className="pt-4 lg:mt-8">
           <div className="container mx-auto flex">

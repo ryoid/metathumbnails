@@ -17,6 +17,7 @@ import {
   DEFAULT_TEMPLATE,
 } from "../../components/templates";
 import Layout from "../../components/Layout";
+import { TemplateMeta } from "../../components/templates/const";
 
 const TemplatePage: NextPage = ({
   template,
@@ -26,10 +27,10 @@ const TemplatePage: NextPage = ({
   return (
     <>
       <Head>
-        <title>Meta YouTube Thumbnails</title>
+        <title>{TemplateMeta[template as TemplateType].title}</title>
         <meta
           name="description"
-          content="Generate meta youtube thumbnails to takeover the world"
+          content={TemplateMeta[template as TemplateType].description}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

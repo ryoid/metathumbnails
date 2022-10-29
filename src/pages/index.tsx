@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Layout>
-        <main className="min-h-screen pt-4 lg:mt-8">
+        <main className="pt-4 lg:mt-8">
           <div className="container mx-auto flex">
             {TemplateTypes.map((template) => (
               <div key={`tab-${template}`}>

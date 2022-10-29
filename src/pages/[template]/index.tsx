@@ -34,7 +34,7 @@ const TemplatePage: NextPage = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <main className="mt-4 min-h-screen lg:mt-8">
+        <main className="mt-4 lg:mt-8">
           <div className="container mx-auto mb-8 flex justify-center">
             <TemplateTabs active={template} />
           </div>

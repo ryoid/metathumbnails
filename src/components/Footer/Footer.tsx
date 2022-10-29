@@ -1,5 +1,6 @@
 import React from "react";
 import cn from "clsx";
+import Link from "next/link";
 
 type FooterElement = React.ElementRef<"footer">;
 type PrimitiveFooterProps = React.ComponentPropsWithoutRef<"footer">;
@@ -12,13 +13,17 @@ const Footer = React.forwardRef<FooterElement, FooterProps>(
     return (
       <footer
         {...props}
-        className={cn(
-          "container mx-auto flex flex-col py-8 px-4",
-          props.className
-        )}
+        className={cn("container mx-auto", props.className)}
         ref={forwardedRef}
       >
-        <h1 className="text-center text-4xl font-semibold">Meta Thumbnails</h1>
+        <div className="flex flex-col items-center justify-center gap-4 py-8 px-4 md:flex-row">
+          <div className="text-gray-500">Meta Thumbnails</div>
+          <Link href="/" passHref>
+            <a>
+              <div className="text-gray-500">API</div>
+            </a>
+          </Link>
+        </div>
       </footer>
     );
   }

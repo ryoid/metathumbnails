@@ -12,7 +12,11 @@ const NAME = "Layout";
 const Layout = React.forwardRef<LayoutElement, LayoutProps>(
   ({ children, ...props }, forwardedRef) => {
     return (
-      <div {...props} className={cn("", props.className)} ref={forwardedRef}>
+      <div
+        {...props}
+        className={cn("min-h-screen", props.className)}
+        ref={forwardedRef}
+      >
         <Header />
 
         {children}

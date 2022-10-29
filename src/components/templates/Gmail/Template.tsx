@@ -43,6 +43,8 @@ const RenderGmailTemplate = async (
         paddingBottom: 38,
         paddingLeft: 38,
         fontSize: 52,
+        fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
+        letterSpacing: 2,
       }}
     >
       <div
@@ -143,6 +145,7 @@ const RenderGmailTemplate = async (
             marginTop: "2rem",
             marginBottom: "2rem",
             minHeight: 320,
+            fontFamily: "'Inter', sans-serif",
           }}
         >
           {props.body}
@@ -152,7 +155,7 @@ const RenderGmailTemplate = async (
             display: "flex",
             flexWrap: "wrap",
             fontSize: 80,
-            fontWeight: 500,
+            fontWeight: 600,
           }}
         >
           {props.suggestions.map((suggestion, i) => {

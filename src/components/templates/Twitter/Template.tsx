@@ -37,6 +37,7 @@ const RenderTwitterTemplate = async (
         paddingBottom: 38,
         paddingLeft: 38,
         fontSize: 52,
+        fontFamily: "'Inter', sans-serif",
       }}
     >
       <div

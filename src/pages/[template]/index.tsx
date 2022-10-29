@@ -16,12 +16,7 @@ import {
   TemplateConfigurator,
   DEFAULT_TEMPLATE,
 } from "../../components/templates";
-
-const Header = () => (
-  <div className="container mx-auto flex flex-col py-8 px-4">
-    <h1 className="text-center text-4xl font-semibold">Meta Thumbnails</h1>
-  </div>
-);
+import Layout from "../../components/Layout";
 
 const TemplatePage: NextPage = ({
   template,
@@ -38,26 +33,26 @@ const TemplatePage: NextPage = ({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="mt-4 min-h-screen lg:mt-8">
-        <Header />
-
-        <div className="container mx-auto mb-8 flex justify-center">
-          <TemplateTabs active={template} />
-        </div>
-
-        <div className="container mx-auto flex flex-col justify-center gap-4 px-4 lg:flex-row lg:gap-12">
-          <div className="flex flex-col">
-            <TemplateConfigurator template={template} />
+      <Layout>
+        <main className="mt-4 min-h-screen lg:mt-8">
+          <div className="container mx-auto mb-8 flex justify-center">
+            <TemplateTabs active={template} />
           </div>
 
-          <div className="-order-1 w-full lg:order-2 lg:max-w-[400px]">
-            <Preview
-              template={template}
-              formAtom={templateForms[template as TemplateType]}
-            />
+          <div className="container mx-auto flex flex-col justify-center gap-4 px-4 lg:flex-row lg:gap-12">
+            <div className="flex flex-col">
+              <TemplateConfigurator template={template} />
+            </div>
+
+            <div className="-order-1 w-full lg:order-2 lg:max-w-[400px]">
+              <Preview
+                template={template}
+                formAtom={templateForms[template as TemplateType]}
+              />
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </Layout>
     </>
   );
 };

@@ -1,9 +1,5 @@
 import React from "react";
-import type {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useAtom } from "jotai";
 
@@ -14,14 +10,15 @@ import {
   TemplateType,
   TemplateTypes,
   TemplateConfigurator,
-  DEFAULT_TEMPLATE,
 } from "../../components/templates";
 import Layout from "../../components/Layout";
 import { TemplateMeta } from "../../components/templates/const";
+import { useRouter } from "next/router";
 
-const TemplatePage: NextPage = ({
-  template,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const TemplatePage: NextPage = () => {
+  const router = useRouter();
+  const template = router.query.template as TemplateType;
+
   const [templateForms] = useAtom(templateFormAtom);
 
   return (
@@ -58,22 +55,25 @@ const TemplatePage: NextPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const template = context.query.template as any as TemplateType;
+export const getStaticProps: GetStaticProps = (context) => {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+};
 
-  if (!TemplateTypes.includes(template)) {
-    return {
-      redirect: {
-        destination: `/${DEFAULT_TEMPLATE}`,
-        permanent: true,
-      },
-    };
-  }
+export const getStaticPaths: GetStaticPaths = async () => {
+  console.log(
+    "types",
+    TemplateTypes.map((template) => ({
+      params: { template: template },
+    }))
+  );
 
   return {
-    props: {
-      template,
-    },
+    paths: TemplateTypes.map((template) => ({
+      params: { template: template },
+    })),
+    fallback: false,
   };
 };
 

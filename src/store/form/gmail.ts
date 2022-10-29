@@ -1,9 +1,9 @@
 import { dateToLocaleISOString, initalDate } from "../../utils/date";
-import { atomWithLocalStorage, getInitialFormState } from "./util";
+import { atomWithLocalStorage, FormState, getInitialFormState } from "./util";
 
 export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
-export type GmailFormState = {
+export type GmailFormState = FormState & {
   from: string;
   to: string;
   avatar: string;
@@ -16,6 +16,8 @@ export type GmailFormState = {
 };
 
 export const InitialGmailFormState = {
+  version: 0,
+
   from: "Your Boss",
   to: "me",
   avatar: DEFAULT_AVATAR,

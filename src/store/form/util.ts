@@ -1,5 +1,9 @@
 import { atom, WritableAtom } from "jotai";
 
+export type FormState = {
+  version: number;
+};
+
 const isSSR = typeof window === "undefined";
 
 export function getInitialFormState<T>(key: string, initialValue: T) {
@@ -7,6 +11,11 @@ export function getInitialFormState<T>(key: string, initialValue: T) {
   const item = localStorage.getItem(key);
   if (item !== null) {
     const data = JSON.parse(item);
+    if (
+      !data ||
+      (data as FormState).version != (initialValue as FormState).version
+    )
+      return initialValue;
     if (data.avatar?.startsWith("blob:")) {
       data.avatar = undefined;
     }

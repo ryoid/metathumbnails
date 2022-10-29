@@ -1,10 +1,9 @@
-import { atom, WritableAtom } from "jotai";
 import { dateToLocaleISOString, initalDate } from "../../utils/date";
-import { atomWithLocalStorage, getInitialFormState } from "./util";
+import { atomWithLocalStorage, FormState, getInitialFormState } from "./util";
 
 export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
-export type TwitterFormState = {
+export type TwitterFormState = FormState & {
   from: string;
   username: string;
   avatar: string;
@@ -21,6 +20,8 @@ export type TwitterFormState = {
 };
 
 export const InitialTwitterFormState: TwitterFormState = {
+  version: 0,
+
   from: "jack",
   username: "jack",
   avatar: DEFAULT_AVATAR,

@@ -9,7 +9,7 @@ export type TwitterFormState = {
   body: string;
   verified: boolean;
 
-  darkMode: string;
+  theme: string;
 
   retweets: number;
   quotes: number;
@@ -24,7 +24,7 @@ export const InitialTwitterFormState: TwitterFormState = {
   date: (new Date().toISOString().split(".")[0] as string).slice(0, -3),
   verified: false,
 
-  darkMode: "true",
+  theme: "dark",
 
   retweets: 144,
   quotes: 491,

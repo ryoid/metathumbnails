@@ -200,7 +200,7 @@ const currentOptions = {};
 const overrideOptions: any = null;
 
 const Preview = React.forwardRef<PreviewElement, PreviewProps>(
-  ({ template = "gmail", formAtom, ...props }, forwardedRef) => {
+  ({ template = "twitter", formAtom, ...props }, forwardedRef) => {
     const [f] = useAtom(formAtom);
 
     const [options, setOptions] = React.useState<any | object | null>(null);

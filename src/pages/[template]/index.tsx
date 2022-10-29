@@ -14,6 +14,7 @@ import {
   TemplateType,
   TemplateTypes,
   TemplateConfigurator,
+  DEFAULT_TEMPLATE,
 } from "../../components/templates";
 
 const Header = () => (
@@ -21,8 +22,6 @@ const Header = () => (
     <h1 className="text-center text-4xl font-semibold">Meta Thumbnails</h1>
   </div>
 );
-
-const DEFAULT_TEMPLATE = "gmail";
 
 const TemplatePage: NextPage = ({
   template,

@@ -1,6 +1,6 @@
 import { SatoriOptions } from "satori";
 
-import { TemplateType, TemplateTypes } from "./const";
+import { TemplateType, TemplateTypes, DEFAULT_TEMPLATE } from "./const";
 import { RenderGmailTemplate } from "./Gmail";
 import { RenderTwitterTemplate } from "./Twitter";
 
@@ -12,6 +12,6 @@ export const TemplateRenderer: Record<
   (props: any, options: SatoriOptions) => Promise<string>
 > = { gmail: RenderGmailTemplate, twitter: RenderTwitterTemplate };
 
-export { TemplateTypes, TemplateConfigurator };
+export { TemplateTypes, TemplateConfigurator, DEFAULT_TEMPLATE };
 
 export type { TemplateType };

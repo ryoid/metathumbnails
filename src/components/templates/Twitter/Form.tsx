@@ -19,8 +19,6 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
     const handleInputChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-      console.log({ [e.target.id]: e.target.value });
-
       setForm((s) => ({ ...s, [e.target.id]: e.target.value }));
     };
 
@@ -35,14 +33,14 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         </h3>
         <div>
           <label
-            htmlFor="darkMode"
+            htmlFor="theme"
             className="relative inline-flex cursor-pointer items-center"
           >
             <input
               type="checkbox"
-              id="darkMode"
-              checked={f.darkMode == "true"}
-              value={f.darkMode == "true" ? "false" : "true"}
+              id="theme"
+              checked={f.theme == "dark"}
+              value={f.theme == "dark" ? "light" : "dark"}
               className="peer sr-only"
               onChange={handleInputChange}
             ></input>

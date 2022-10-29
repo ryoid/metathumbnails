@@ -14,13 +14,15 @@ const RenderTwitterTemplate = (
   const date = new Date(props.date);
   const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
-  const color = props.darkMode == "true" ? "white" : "black";
-  const secondaryColor = props.darkMode == "true" ? "#7E8E9B" : "#5B7083";
-  const borderColor = props.darkMode == "true" ? "#2D3942" : "#D7DEE3";
+  console.log("props", props);
+
+  const color = props.theme == "dark" ? "white" : "black";
+  const secondaryColor = props.theme == "dark" ? "#7E8E9B" : "#5B7083";
+  const borderColor = props.theme == "dark" ? "#2D3942" : "#D7DEE3";
   return satori(
     <div
       style={{
-        backgroundColor: props.darkMode == "true" ? "#15202B" : "white",
+        backgroundColor: props.theme == "dark" ? "#15202B" : "white",
         color: color,
         display: "flex",
         flexDirection: "column",

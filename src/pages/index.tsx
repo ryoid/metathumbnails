@@ -4,7 +4,11 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { Preview } from "../components/Preview";
-import { TemplateTypes, TemplateConfigurator } from "../components/templates";
+import {
+  TemplateTypes,
+  TemplateConfigurator,
+  DEFAULT_TEMPLATE,
+} from "../components/templates";
 import { templateFormAtom } from "../store/form";
 
 const Header = () => (
@@ -42,11 +46,14 @@ const Home: NextPage = () => {
 
         <div className="container mx-auto flex flex-col justify-center gap-4 px-4 lg:flex-row lg:gap-12">
           <div className="flex flex-col">
-            <TemplateConfigurator template={"gmail"} />
+            <TemplateConfigurator template={DEFAULT_TEMPLATE} />
           </div>
 
           <div className="-order-1 w-full lg:order-2 lg:max-w-[400px]">
-            <Preview template={"gmail"} formAtom={templateForms["gmail"]} />
+            <Preview
+              template={DEFAULT_TEMPLATE}
+              formAtom={templateForms[DEFAULT_TEMPLATE]}
+            />
           </div>
         </div>
       </main>
@@ -62,7 +69,7 @@ export const getServerSideProps = async (
   if (!TemplateTypes.includes(template)) {
     return {
       redirect: {
-        destination: `/${"DEFAULT_TEMPLATE"}`,
+        destination: `/${DEFAULT_TEMPLATE}`,
       },
     };
   }

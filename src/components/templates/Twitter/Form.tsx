@@ -2,7 +2,14 @@ import React from "react";
 import cn from "clsx";
 import { useAtom } from "jotai";
 
-import { Button, FormControl, InputText, Label, Textarea } from "../../basic";
+import {
+  Button,
+  FormControl,
+  InputAvatar,
+  InputText,
+  Label,
+  Textarea,
+} from "../../basic";
 import { RandomIcon } from "../../icons";
 import { randomInt } from "../../../utils/random";
 import { twitterAtom } from "../../../store/form";
@@ -53,7 +60,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         </div>
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-green-900/20 px-1.5 text-lg font-medium text-white/90">
           Details
-        </h3>{" "}
+        </h3>
         <div className="grid grid-cols-3 gap-2">
           <div className="col-span-2 grid gap-2">
             <FormControl>
@@ -83,85 +90,14 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
 
           <div>
             <FormControl>
-              <div className="flex items-center justify-center gap-2">
-                <Label htmlFor="avatar">
-                  <div
-                    className="cursor-pointer rounded-full border-2 border-dashed border-gray-600 p-1"
-                    tabIndex={0}
-                  >
-                    <div className="relative h-16 w-16 overflow-hidden rounded-full bg-gray-800">
-                      <img
-                        className="absolute inset-0"
-                        src={f.avatar ?? DEFAULT_AVATAR}
-                        alt="avatar"
-                        title={
-                          f.avatar !== "/twitter-avatar.jpg" &&
-                          !f.avatar?.startsWith("blob:")
-                            ? f.avatar
-                            : undefined
-                        }
-                      />
-                    </div>
-                  </div>
-                  <input
-                    id="avatar"
-                    type="file"
-                    className="hidden"
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      const url = URL.createObjectURL(file);
-                      setForm((s) => ({ ...s, avatar: url }));
-                    }}
-                    accept="image/png"
-                  />
-                </Label>
-                <div className="flex flex-col gap-2">
-                  <InputText
-                    id="avatar"
-                    size="sm"
-                    value={
-                      f.avatar !== "/twitter-avatar.jpg" &&
-                      !f.avatar?.startsWith("blob:")
-                        ? f.avatar
-                        : undefined
-                    }
-                    onChange={handleInputChange}
-                    placeholder="URL"
-                    title={
-                      f.avatar !== "/twitter-avatar.jpg" &&
-                      !f.avatar?.startsWith("blob:")
-                        ? f.avatar
-                        : undefined
-                    }
-                  />
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setForm((s) => ({
-                        ...s,
-                        avatar: "/twitter-avatar.jpg",
-                      }));
-                    }}
-                    disabled={f.avatar == "/twitter-avatar.jpg"}
-                    title={
-                      f.avatar == "/twitter-avatar.jpg"
-                        ? "Already set to default"
-                        : ""
-                    }
-                    center
-                  >
-                    Default
-                  </Button>
-                </div>
-              </div>
-              <div className="mt-2 select-none text-xs text-gray-600">
-                Upload image for avatar{" "}
-                <i>
-                  (currently only <code>.PNG</code>)
-                </i>
-              </div>
+              <InputAvatar
+                id="avatar"
+                value={f.avatar}
+                onChange={(v) => {
+                  setForm((s) => ({ ...s, avatar: v }));
+                }}
+                defaultValue={DEFAULT_AVATAR}
+              />
             </FormControl>
           </div>
         </div>
@@ -181,11 +117,12 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
           </FormControl>
           <FormControl className="relative">
             <Label htmlFor="platform">Device</Label>
-            <div className="">
+            <div>
               <InputText
                 id="platform"
                 value={f.platform}
                 onChange={handleInputChange}
+                autoComplete="off"
               />
               <div className="absolute mt-2 rounded border border-white/5 bg-gray-900 px-2 py-1.5 text-xs text-gray-400 opacity-0 transition-opacity group-focus-within:opacity-100">
                 <div className="mb-2 flex gap-2">

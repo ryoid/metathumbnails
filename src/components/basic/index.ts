@@ -6,6 +6,7 @@ import SuggestionPill from "./SuggestionPill";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
 import InputTag from "./InputTag";
+import InputAvatar from "./InputAvatar";
 
 export {
   InputText,
@@ -16,4 +17,5 @@ export {
   Skeleton,
   Button,
   InputTag,
+  InputAvatar,
 };

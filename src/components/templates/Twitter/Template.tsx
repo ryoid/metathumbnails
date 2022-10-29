@@ -13,8 +13,6 @@ const RenderTwitterTemplate = (
   const date = new Date(props.date);
   const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
-  console.log("props", props);
-
   const color = props.theme == "dark" ? "white" : "black";
   const secondaryColor = props.theme == "dark" ? "#7E8E9B" : "#5B7083";
   const borderColor = props.theme == "dark" ? "#2D3942" : "#D7DEE3";
@@ -52,7 +50,11 @@ const RenderTwitterTemplate = (
             }}
             height={155}
             width={155}
-            src={props.avatar ?? DEFAULT_AVATAR}
+            src={
+              props.avatar && props.avatar !== ""
+                ? props.avatar
+                : DEFAULT_AVATAR
+            }
             alt="avatar"
           />
         </div>

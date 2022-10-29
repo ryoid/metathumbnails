@@ -2,7 +2,13 @@
 import React from "react";
 import satori, { SatoriOptions } from "satori";
 
-import { GmailFormState } from "../../../store/form/gmail";
+import { GmailFormState, DEFAULT_AVATAR } from "../../../store/form/gmail";
+import {
+  isThisYear,
+  isToday,
+  formatDistanceToNowStrict,
+  format,
+} from "date-fns";
 
 type GmailTemplateProps = GmailFormState;
 
@@ -10,6 +16,7 @@ const RenderGmailTemplate = (
   props: GmailTemplateProps,
   options: SatoriOptions
 ) => {
+  const date = new Date(props.date);
   return satori(
     <div
       style={{
@@ -38,7 +45,9 @@ const RenderGmailTemplate = (
           }}
           height={128}
           width={128}
-          src={props.avatar}
+          src={
+            props.avatar && props.avatar !== "" ? props.avatar : DEFAULT_AVATAR
+          }
           alt="avatar"
         />
       </div>
@@ -72,7 +81,19 @@ const RenderGmailTemplate = (
                 fontSize: 32,
               }}
             >
-              {props.time} (<span>{props.time_ago} ago</span>)
+              {isToday(date)
+                ? format(date, "h:mm a")
+                : isThisYear(date)
+                ? format(date, "eee, MMM M, h:mm a")
+                : format(date, "eee, MMM M, yyyy, h:mm a")}{" "}
+              (
+              <span>
+                {props.time_ago && props.time_ago !== ""
+                  ? props.time_ago
+                  : formatDistanceToNowStrict(date)}{" "}
+                ago
+              </span>
+              )
             </div>
           </div>
           <div

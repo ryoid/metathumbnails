@@ -1,11 +1,12 @@
 import { atom, WritableAtom } from "jotai";
+import { dateToLocaleISOString, initalDate } from "../../utils/date";
 
 export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
 export type TwitterFormState = {
   from: string;
   username: string;
-  avatar?: string;
+  avatar: string;
   platform?: string; // 'Twitter Web App' | 'Twitter for iPhone'
   date: string;
   body: string;
@@ -21,8 +22,9 @@ export type TwitterFormState = {
 export const InitialTwitterFormState: TwitterFormState = {
   from: "jack",
   username: "jack",
+  avatar: DEFAULT_AVATAR,
   platform: "Twitter for iPhone",
-  date: (new Date().toISOString().split(".")[0] as string).slice(0, -3),
+  date: dateToLocaleISOString(initalDate()),
   verified: false,
 
   theme: "dark",

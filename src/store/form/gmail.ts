@@ -1,24 +1,30 @@
 import { atom, WritableAtom } from "jotai";
+import { dateToLocaleISOString, initalDate } from "../../utils/date";
+
+export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
 
 export type GmailFormState = {
   from: string;
   to: string;
   avatar: string;
-  time: string;
+  date: string;
   time_ago: string;
   body: string;
   suggestions: string[];
+
+  theme: string;
 };
 
 export const InitialGmailFormState = {
   from: "Your Boss",
   to: "me",
-  avatar:
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80",
-  time: "11:34 AM",
+  avatar: DEFAULT_AVATAR,
+  date: dateToLocaleISOString(initalDate()),
   time_ago: "1 minute",
   body: "Come to my office. Now.",
   suggestions: ["Oh no...", "Am I getting"],
+
+  theme: "light",
 };
 
 const isSSR = typeof window === "undefined";
@@ -30,7 +36,11 @@ function atomWithLocalStorage<T>(key: string, initialValue: GmailFormState) {
     if (isSSR) return initialValue;
     const item = localStorage.getItem(key);
     if (item !== null) {
-      return JSON.parse(item);
+      const data = JSON.parse(item);
+      if (data.avatar?.startsWith("blob:")) {
+        data.avatar = undefined;
+      }
+      return data;
     }
     return initialValue;
   };

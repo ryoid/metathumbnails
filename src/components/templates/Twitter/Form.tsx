@@ -219,7 +219,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         </div>
         <hr className="my-5 border-gray-800" />
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-blue-900/20 px-1.5 text-lg font-medium text-white/90">
-          Email
+          Tweet
         </h3>
         <div className="flex flex-col gap-2">
           <FormControl>

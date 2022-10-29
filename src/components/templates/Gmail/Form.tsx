@@ -97,7 +97,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
         </h3>
 
         <div className="grid grid-cols-3 gap-2">
-          <div className="col-span-2 grid gap-2">
+          <div className="order-3 col-span-3 grid gap-2 md:order-1 md:col-span-2">
             <FormControl>
               <Label htmlFor="from">From</Label>
               <InputText
@@ -117,7 +117,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
             </FormControl>
           </div>
 
-          <div>
+          <div className="order-2 col-span-3 md:col-span-1">
             <FormControl>
               <InputAvatar
                 id="avatar"

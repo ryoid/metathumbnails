@@ -43,7 +43,10 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
     return (
       <form
         {...props}
-        className={cn("max-w-lg  [&_.form-control]:mb-4", props.className)}
+        className={cn(
+          "mx-auto xl:max-w-lg [&_.form-control]:mb-4",
+          props.className
+        )}
         ref={forwardedRef}
       >
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-pink-900/20 px-1.5 text-lg font-medium text-white/90">
@@ -73,7 +76,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
           Details
         </h3>
         <div className="grid grid-cols-3 gap-2">
-          <div className="col-span-2 grid gap-2">
+          <div className="order-3 col-span-3 grid gap-2 md:order-1 md:col-span-2">
             <FormControl>
               <Label htmlFor="from">Name</Label>
               <InputText
@@ -99,7 +102,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
             </FormControl>
           </div>
 
-          <div>
+          <div className="order-2 col-span-3 md:col-span-1">
             <FormControl>
               <InputAvatar
                 id="avatar"

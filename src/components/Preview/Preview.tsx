@@ -354,30 +354,34 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
             ref={forwardedRef}
           >
             {renderError && (
-              <div className="bg-red-200 p-4 text-red-600">
-                <div>ERROR</div>
-                <code className="whitespace-pre-wrap">{renderError}</code>
+              <div className="rounded-xl bg-red-200 p-4 text-red-600">
+                <div className="text-sm font-semibold">ERROR</div>
+                <code className="whitespace-pre-wrap break-all text-xs">
+                  {renderError}
+                </code>
               </div>
             )}
             {loadingResources ? spinner : null}
-            <div className="absolute inset-0 overflow-hidden rounded-xl bg-gray-700">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `<div class="absolute inset-0 flex items-center justify-center overflow-hidden " style="">${result}</div>`,
-                }}
-              ></div>
-              {showImage && (
-                <div className="absolute inset-0 z-10">
-                  <img
-                    src={imageResult.url}
-                    width={width}
-                    height={height}
-                    className="object-contain"
-                    alt="Preview thumbnail"
-                  />
-                </div>
-              )}
-            </div>
+            {!renderError && (
+              <div className="absolute inset-0 overflow-hidden rounded-xl bg-gray-700">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `<div class="absolute inset-0 flex items-center justify-center overflow-hidden " style="">${result}</div>`,
+                  }}
+                ></div>
+                {showImage && (
+                  <div className="absolute inset-0 z-10">
+                    <img
+                      src={imageResult.url}
+                      width={width}
+                      height={height}
+                      className="object-contain"
+                      alt="Preview thumbnail"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <div className="mt-4 flex gap-4">
             <div className="relative h-12 w-12 overflow-hidden rounded-full bg-gray-700"></div>

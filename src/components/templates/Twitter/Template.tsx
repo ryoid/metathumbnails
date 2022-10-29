@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
 import satori, { SatoriOptions } from "satori";
 import format from "date-fns/format";
 
-import { TwitterFormState } from "../../../store/form/twitter";
+import { TwitterFormState, DEFAULT_AVATAR } from "../../../store/form/twitter";
 
 type TwitterTemplateProps = TwitterFormState;
 
@@ -53,7 +52,7 @@ const RenderTwitterTemplate = (
             }}
             height={155}
             width={155}
-            src={props.avatar}
+            src={props.avatar ?? DEFAULT_AVATAR}
             alt="avatar"
           />
         </div>

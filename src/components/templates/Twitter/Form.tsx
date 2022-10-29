@@ -6,7 +6,10 @@ import { Button, FormControl, InputText, Label, Textarea } from "../../basic";
 import { RandomIcon } from "../../icons";
 import { randomInt } from "../../../utils/random";
 import { twitterAtom } from "../../../store/form";
-import { InitialTwitterFormState } from "../../../store/form/twitter";
+import {
+  InitialTwitterFormState,
+  DEFAULT_AVATAR,
+} from "../../../store/form/twitter";
 
 type TwitterFormElement = React.ElementRef<"form">;
 type PrimitiveTwitterFormProps = React.ComponentPropsWithoutRef<"form">;
@@ -50,39 +53,119 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         </div>
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-green-900/20 px-1.5 text-lg font-medium text-white/90">
           Details
-        </h3>
+        </h3>{" "}
         <div className="grid grid-cols-3 gap-2">
-          <FormControl className="col-span-2">
-            <Label htmlFor="from">Name</Label>
-            <InputText id="from" value={f.from} onChange={handleInputChange} />
-          </FormControl>
-
-          <FormControl>
-            <Label htmlFor="avatar">Avatar</Label>
-            <InputText
-              id="avatar"
-              value={f.avatar}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-          <FormControl className="col-span-2">
-            <Label htmlFor="username">Twitter handle</Label>
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex select-none items-center pl-4 text-sm text-gray-500">
-                <span className="-mt-0.5">@</span>
-              </div>
+          <div className="col-span-2 grid gap-2">
+            <FormControl>
+              <Label htmlFor="from">Name</Label>
               <InputText
-                id="username"
-                value={f.username}
+                id="from"
+                value={f.from}
                 onChange={handleInputChange}
-                className="pl-8"
               />
-            </div>
-          </FormControl>
+            </FormControl>
+
+            <FormControl>
+              <Label htmlFor="username">Twitter handle</Label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex select-none items-center pl-4 text-sm text-gray-500">
+                  <span className="-mt-0.5">@</span>
+                </div>
+                <InputText
+                  id="username"
+                  value={f.username}
+                  onChange={handleInputChange}
+                  className="pl-8"
+                />
+              </div>
+            </FormControl>
+          </div>
+
+          <div>
+            <FormControl>
+              <div className="flex items-center justify-center gap-2">
+                <Label htmlFor="avatar">
+                  <div
+                    className="cursor-pointer rounded-full border-2 border-dashed border-gray-600 p-1"
+                    tabIndex={0}
+                  >
+                    <div className="relative h-16 w-16 overflow-hidden rounded-full bg-gray-800">
+                      <img
+                        className="absolute inset-0"
+                        src={f.avatar ?? DEFAULT_AVATAR}
+                        alt="avatar"
+                        title={
+                          f.avatar !== "/twitter-avatar.jpg" &&
+                          !f.avatar?.startsWith("blob:")
+                            ? f.avatar
+                            : undefined
+                        }
+                      />
+                    </div>
+                  </div>
+                  <input
+                    id="avatar"
+                    type="file"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      const url = URL.createObjectURL(file);
+                      setForm((s) => ({ ...s, avatar: url }));
+                    }}
+                    accept="image/png"
+                  />
+                </Label>
+                <div className="flex flex-col gap-2">
+                  <InputText
+                    id="avatar"
+                    size="sm"
+                    value={
+                      f.avatar !== "/twitter-avatar.jpg" &&
+                      !f.avatar?.startsWith("blob:")
+                        ? f.avatar
+                        : undefined
+                    }
+                    onChange={handleInputChange}
+                    placeholder="URL"
+                    title={
+                      f.avatar !== "/twitter-avatar.jpg" &&
+                      !f.avatar?.startsWith("blob:")
+                        ? f.avatar
+                        : undefined
+                    }
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setForm((s) => ({
+                        ...s,
+                        avatar: "/twitter-avatar.jpg",
+                      }));
+                    }}
+                    disabled={f.avatar == "/twitter-avatar.jpg"}
+                    title={
+                      f.avatar == "/twitter-avatar.jpg"
+                        ? "Already set to default"
+                        : ""
+                    }
+                    center
+                  >
+                    Default
+                  </Button>
+                </div>
+              </div>
+              <div className="mt-2 select-none text-xs text-gray-600">
+                Upload image for avatar{" "}
+                <i>
+                  (currently only <code>.PNG</code>)
+                </i>
+              </div>
+            </FormControl>
+          </div>
         </div>
-
         <hr className="my-5 border-gray-800" />
-
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-purple-900/20 px-1.5 text-lg font-medium text-white/90">
           When
         </h3>
@@ -134,13 +217,10 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
             </div>
           </FormControl>
         </div>
-
         <hr className="my-5 border-gray-800" />
-
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-blue-900/20 px-1.5 text-lg font-medium text-white/90">
           Email
         </h3>
-
         <div className="flex flex-col gap-2">
           <FormControl>
             <Label htmlFor="body">Words</Label>
@@ -199,9 +279,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
             </Button>
           </div>
         </div>
-
         <hr className="mt-12 mb-4 border-gray-800" />
-
         <Button
           onClick={() => {
             setForm(InitialTwitterFormState);

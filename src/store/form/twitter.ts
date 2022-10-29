@@ -1,9 +1,11 @@
 import { atom, WritableAtom } from "jotai";
 
+export const DEFAULT_AVATAR = "/twitter-avatar.jpg";
+
 export type TwitterFormState = {
   from: string;
   username: string;
-  avatar: string;
+  avatar?: string;
   platform?: string; // 'Twitter Web App' | 'Twitter for iPhone'
   date: string;
   body: string;
@@ -19,7 +21,6 @@ export type TwitterFormState = {
 export const InitialTwitterFormState: TwitterFormState = {
   from: "jack",
   username: "jack",
-  avatar: "/twitter-avatar.jpg",
   platform: "Twitter for iPhone",
   date: (new Date().toISOString().split(".")[0] as string).slice(0, -3),
   verified: false,
@@ -42,7 +43,11 @@ function atomWithLocalStorage<T>(key: string, initialValue: TwitterFormState) {
     if (isSSR) return initialValue;
     const item = localStorage.getItem(key);
     if (item !== null) {
-      return JSON.parse(item);
+      const data = JSON.parse(item);
+      if (data.avatar?.startsWith("blob:")) {
+        data.avatar = undefined;
+      }
+      return data;
     }
     return initialValue;
   };

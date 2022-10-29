@@ -225,7 +225,10 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
 
         <Button
           onClick={() => {
-            setForm(InitialGmailFormState);
+            setForm({
+              ...InitialGmailFormState,
+              ssr: false,
+            });
           }}
         >
           Reset Config

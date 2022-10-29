@@ -2,7 +2,7 @@ import { atom, WritableAtom } from "jotai";
 
 export type FormState = {
   version: number;
-  ssr: number;
+  ssr: boolean;
 };
 
 export const isSSR = typeof window === "undefined";

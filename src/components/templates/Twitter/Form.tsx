@@ -233,7 +233,10 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         <hr className="mt-12 mb-4 border-gray-800" />
         <Button
           onClick={() => {
-            setForm(InitialTwitterFormState);
+            setForm({
+              ...InitialTwitterFormState,
+              ssr: false,
+            });
           }}
         >
           Reset Config

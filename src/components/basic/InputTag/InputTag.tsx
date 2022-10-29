@@ -44,7 +44,10 @@ const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
       formatDefaultValue(defaultValue)
     );
 
-    React.useImperativeHandle(forwardedRef, () => innerRef.current!);
+    React.useImperativeHandle(
+      forwardedRef,
+      () => innerRef.current as InputTagElement
+    );
 
     const TagComponent = tag ? tag : "div";
 

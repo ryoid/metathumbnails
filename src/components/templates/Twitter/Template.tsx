@@ -20,8 +20,8 @@ const RenderTwitterTemplate = async (
   const secondaryColor = props.theme == "dark" ? "#7E8E9B" : "#5B7083";
   const borderColor = props.theme == "dark" ? "#2D3942" : "#D7DEE3";
 
-  const cachedResult = cache.get([props, options]);
-  if (cachedResult) return cachedResult;
+  const key = [props, options];
+  if (cache.get(key)) return cache.get(key);
   const result = await satori(
     <div
       style={{
@@ -206,7 +206,7 @@ const RenderTwitterTemplate = async (
     </div>,
     options
   );
-  cache.set([props, options], result);
+  cache.set(key, result);
   return result;
 };
 

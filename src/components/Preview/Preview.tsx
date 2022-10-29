@@ -11,6 +11,7 @@ import { Button, Skeleton } from "../basic";
 import { TemplateType, TemplateRenderer } from "../templates";
 import { toast } from "react-hot-toast";
 import { CopyIcon } from "../icons";
+import { LRUCache } from "../../utils/cache";
 
 // @TODO: Support font style and weights, and make this option extensible rather
 // than built-in.
@@ -177,7 +178,7 @@ function initResvgWorker() {
     }
   };
 
-  return async (msg: object) => {
+  return async (msg: { svg: string; width: number }) => {
     const _id = Math.random();
     worker.postMessage({
       ...msg,

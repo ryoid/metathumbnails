@@ -40,7 +40,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         />
       </Head>
       <Toaster
-        position="bottom-right"
+        position="top-center"
         reverseOrder={false}
         gutter={8}
         containerClassName=""

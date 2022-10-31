@@ -27,8 +27,8 @@ export type TwitterFormState = FormState & {
 export const InitialTwitterFormState: TwitterFormState = {
   version: 0,
 
-  from: "jack",
-  username: "jack",
+  from: "boss",
+  username: "boss",
   avatar: DEFAULT_AVATAR,
   platform: "Twitter for iPhone",
   date: dateToLocaleISOString(initalDate()),

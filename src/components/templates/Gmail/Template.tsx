@@ -106,11 +106,11 @@ const RenderGmailTemplate = async (
               }}
             >
               {isToday(date)
-                ? format(date, "h:mm a")
+                ? format(date, "h:mm a ")
                 : isThisYear(date)
-                ? format(date, "eee, MMM M, h:mm a")
-                : format(date, "eee, MMM M, yyyy, h:mm a")}{" "}
-              <span>
+                ? format(date, "eee, MMM M, h:mm a ")
+                : format(date, "eee, MMM M, yyyy, h:mm a ")}
+              <span style={{ marginLeft: 24 }}>
                 (
                 {props.time_ago && props.time_ago !== ""
                   ? props.time_ago

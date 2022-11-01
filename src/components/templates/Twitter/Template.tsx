@@ -25,6 +25,9 @@ const RenderTwitterTemplate = async (
 
   const key = [props, options];
   if (cache.get(key)) return cache.get(key);
+
+  const hasReactions =
+    !props.disabled.quotes || !props.disabled.quotes || !props.disabled.likes;
   const result = await satori(
     <div
       style={{
@@ -101,56 +104,104 @@ const RenderTwitterTemplate = async (
       <div style={{ display: "flex", fontSize: 70, marginBottom: 50 }}>
         {props.body}
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: 47,
-          color: secondaryColor,
-          marginBottom: 58 - 32,
-        }}
-      >
-        {format(date, "h:mm aa")}
-        <span style={{ fontSize: 24, marginLeft: 12, marginRight: 12 }}>•</span>
-        {format(date, "dd/MM/yy")}
-        <span style={{ fontSize: 24, marginLeft: 12, marginRight: 12 }}>•</span>
-        <span>{props.platform}</span>
-      </div>
-      <hr style={{ height: 2.5, background: borderColor, width: "100%" }} />
-      <div
-        style={{
-          display: "flex",
-          fontSize: 47,
-          color: secondaryColor,
-          marginTop: 45,
-          marginBottom: 70 - 35,
-        }}
-      >
-        {props.retweets && (
-          <span style={{ marginRight: 80 }}>
-            <span style={{ color: color, fontWeight: "bold", marginRight: 16 }}>
-              {formatter.format(props.retweets)}
+      {(!props.disabled.date || !props.disabled.platform) && (
+        <>
+          {props.disabled.date && !props.disabled.platform ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: 47,
+                color: secondaryColor,
+                marginBottom: 58 - 32,
+              }}
+            >
+              <span>{props.platform}</span>
+            </div>
+          ) : props.disabled.platform && !props.disabled.date ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: 47,
+                color: secondaryColor,
+                marginBottom: 58 - 32,
+              }}
+            >
+              {format(date, "h:mm aa")}
+              <span style={{ fontSize: 24, marginLeft: 12, marginRight: 12 }}>
+                •
+              </span>
+              {format(date, "dd/MM/yy")}
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: 47,
+                color: secondaryColor,
+                marginBottom: 58 - 32,
+              }}
+            >
+              {format(date, "h:mm aa")}
+              <span style={{ fontSize: 24, marginLeft: 12, marginRight: 12 }}>
+                •
+              </span>
+              {format(date, "dd/MM/yy")}
+              <span style={{ fontSize: 24, marginLeft: 12, marginRight: 12 }}>
+                •
+              </span>
+              <span>{props.platform}</span>
+            </div>
+          )}
+        </>
+      )}
+      {hasReactions && (
+        <hr style={{ height: 2.5, background: borderColor, width: "100%" }} />
+      )}
+      {hasReactions && (
+        <div
+          style={{
+            display: "flex",
+            fontSize: 47,
+            color: secondaryColor,
+            marginTop: 45,
+            marginBottom: 70 - 35,
+          }}
+        >
+          {props.retweets && !props.disabled.retweets && (
+            <span style={{ marginRight: 80 }}>
+              <span
+                style={{ color: color, fontWeight: "bold", marginRight: 16 }}
+              >
+                {formatter.format(props.retweets)}
+              </span>
+              Retweet{props.retweets > 1 ? "s" : ""}
             </span>
-            Retweet{props.retweets > 1 ? "s" : ""}
-          </span>
-        )}
-        {props.quotes && (
-          <span style={{ marginRight: 80 }}>
-            <span style={{ color: color, fontWeight: "bold", marginRight: 16 }}>
-              {formatter.format(props.quotes)}
+          )}
+          {props.quotes && !props.disabled.quotes && (
+            <span style={{ marginRight: 80 }}>
+              <span
+                style={{ color: color, fontWeight: "bold", marginRight: 16 }}
+              >
+                {formatter.format(props.quotes)}
+              </span>
+              Quote Tweet{props.quotes > 1 ? "s" : ""}
             </span>
-            Quote Tweet{props.quotes > 1 ? "s" : ""}
-          </span>
-        )}
-        {props.likes && (
-          <span style={{ marginRight: 80 }}>
-            <span style={{ color: color, fontWeight: "bold", marginRight: 16 }}>
-              {formatter.format(props.likes)}
+          )}
+          {props.likes && !props.disabled.likes && (
+            <span style={{ marginRight: 80 }}>
+              <span
+                style={{ color: color, fontWeight: "bold", marginRight: 16 }}
+              >
+                {formatter.format(props.likes)}
+              </span>
+              Like{props.likes > 1 ? "s" : ""}
             </span>
-            Like{props.likes > 1 ? "s" : ""}
-          </span>
-        )}
-      </div>
+          )}
+        </div>
+      )}
       <hr style={{ height: 2.5, background: borderColor, width: "100%" }} />
       <div
         style={{

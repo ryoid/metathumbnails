@@ -101,26 +101,61 @@ const RenderGmailTemplate = async (
             >
               {props.from}
             </div>
-            <div
-              style={{
-                display: "flex",
-                color: secondaryColor,
-                fontSize: 70,
-              }}
-            >
-              {isToday(date)
-                ? format(date, "h:mm a ")
-                : isThisYear(date)
-                ? format(date, "eee, MMM M, h:mm a ")
-                : format(date, "eee, MMM M, yyyy, h:mm a ")}
-              <span style={{ marginLeft: 24 }}>
-                (
-                {props.time_ago && props.time_ago !== ""
-                  ? props.time_ago
-                  : formatDistanceToNowStrict(date)}{" "}
-                ago)
-              </span>
-            </div>
+            {(!props.disabled.date || !props.disabled.time_ago) && (
+              <>
+                {props.disabled.time_ago && !props.disabled.date ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      color: secondaryColor,
+                      fontSize: 70,
+                    }}
+                  >
+                    {isToday(date)
+                      ? format(date, "h:mm a ")
+                      : isThisYear(date)
+                      ? format(date, "eee, MMM M, h:mm a ")
+                      : format(date, "eee, MMM M, yyyy, h:mm a ")}
+                  </div>
+                ) : props.disabled.date && !props.disabled.time_ago ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      color: secondaryColor,
+                      fontSize: 70,
+                    }}
+                  >
+                    <span style={{ marginLeft: 24 }}>
+                      {props.time_ago && props.time_ago !== ""
+                        ? props.time_ago
+                        : formatDistanceToNowStrict(date)}{" "}
+                      ago
+                    </span>
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      color: secondaryColor,
+                      fontSize: 70,
+                    }}
+                  >
+                    {isToday(date)
+                      ? format(date, "h:mm a ")
+                      : isThisYear(date)
+                      ? format(date, "eee, MMM M, h:mm a ")
+                      : format(date, "eee, MMM M, yyyy, h:mm a ")}
+                    <span style={{ marginLeft: 24 }}>
+                      (
+                      {props.time_ago && props.time_ago !== ""
+                        ? props.time_ago
+                        : formatDistanceToNowStrict(date)}{" "}
+                      ago)
+                    </span>
+                  </div>
+                )}
+              </>
+            )}
           </div>
           <div
             style={{
@@ -153,36 +188,38 @@ const RenderGmailTemplate = async (
         >
           {props.body}
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            fontSize: 80,
-            fontWeight: 600,
-          }}
-        >
-          {props.suggestions.map((suggestion, i) => {
-            return (
-              <div
-                key={suggestion}
-                style={{
-                  color: "#005DCD",
-                  borderColor: borderColor,
-                  borderWidth: 8,
-                  borderStyle: "solid",
-                  borderRadius: 34,
-                  paddingTop: 45,
-                  paddingBottom: 45,
-                  paddingLeft: 90,
-                  paddingRight: 90,
-                  marginLeft: i !== 0 ? 82 : 0,
-                }}
-              >
-                {suggestion}
-              </div>
-            );
-          })}
-        </div>
+        {!props.disabled.suggestions && (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              fontSize: 80,
+              fontWeight: 600,
+            }}
+          >
+            {props.suggestions.map((suggestion, i) => {
+              return (
+                <div
+                  key={suggestion}
+                  style={{
+                    color: "#005DCD",
+                    borderColor: borderColor,
+                    borderWidth: 8,
+                    borderStyle: "solid",
+                    borderRadius: 34,
+                    paddingTop: 45,
+                    paddingBottom: 45,
+                    paddingLeft: 90,
+                    paddingRight: 90,
+                    marginLeft: i !== 0 ? 82 : 0,
+                  }}
+                >
+                  {suggestion}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>,
     options

@@ -12,7 +12,7 @@ import {
   InputTag,
   InputAvatar,
   InputTip,
-  Toggle,
+  ToggleHide,
 } from "../../basic";
 import { debounce } from "../../../utils/debounce";
 import {
@@ -145,7 +145,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
           <FormControl className="w-full">
             <div className="flex items-center justify-between">
               <Label htmlFor="date">Date</Label>
-              <Toggle
+              <ToggleHide
                 id="disabled.date"
                 size="xs"
                 title={`${!!f.disabled.date ? "Show" : "Hide"}`}
@@ -172,7 +172,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
           <FormControl className="w-full">
             <div className="flex items-center justify-between">
               <Label htmlFor="time_ago">How long ago</Label>
-              <Toggle
+              <ToggleHide
                 id="disabled.time_ago"
                 size="xs"
                 title={`${!!f.disabled.time_ago ? "Show" : "Hide"}`}
@@ -247,7 +247,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
           <FormControl className="w-full">
             <div className="flex items-center justify-between">
               <Label htmlFor="suggestions">Suggestion Pills</Label>
-              <Toggle
+              <ToggleHide
                 id="disabled.suggestions"
                 size="xs"
                 title={`${!!f.disabled.suggestions ? "Show" : "Hide"}`}

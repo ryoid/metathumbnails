@@ -9,6 +9,7 @@ import InputTag from "./InputTag";
 import InputAvatar from "./InputAvatar";
 import InputTip from "./InputTip";
 import Toggle from "./Toggle";
+import ToggleHide from "./ToggleHide";
 
 export {
   InputText,
@@ -22,4 +23,5 @@ export {
   InputAvatar,
   InputTip,
   Toggle,
+  ToggleHide,
 };

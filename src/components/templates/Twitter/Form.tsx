@@ -10,7 +10,7 @@ import {
   InputTip,
   Label,
   Textarea,
-  Toggle,
+  ToggleHide,
 } from "../../basic";
 import { RandomIcon } from "../../icons";
 import { randomInt } from "../../../utils/random";
@@ -125,7 +125,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
           <FormControl>
             <div className="flex items-center justify-between">
               <Label htmlFor="date">Date</Label>
-              <Toggle
+              <ToggleHide
                 id="disabled.date"
                 size="xs"
                 title={`${!!f.disabled.date ? "Show" : "Hide"}`}
@@ -152,7 +152,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
           <FormControl className="relative">
             <div className="flex items-center justify-between">
               <Label htmlFor="platform">Device</Label>
-              <Toggle
+              <ToggleHide
                 id="disabled.platform"
                 size="xs"
                 title={`${!!f.disabled.platform ? "Show" : "Hide"}`}
@@ -224,7 +224,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
             <FormControl>
               <div className="flex items-center justify-between">
                 <Label htmlFor="retweets">Retweets</Label>
-                <Toggle
+                <ToggleHide
                   id="disabled.retweets"
                   size="xs"
                   title={`${!!f.disabled.retweets ? "Show" : "Hide"}`}
@@ -265,7 +265,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
             <FormControl>
               <div className="flex items-center justify-between">
                 <Label htmlFor="quotes">Quotes</Label>
-                <Toggle
+                <ToggleHide
                   id="disabled.quotes"
                   size="xs"
                   title={`${!!f.disabled.quotes ? "Show" : "Hide"}`}
@@ -306,7 +306,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
             <FormControl>
               <div className="flex items-center justify-between">
                 <Label htmlFor="likes">Likes</Label>
-                <Toggle
+                <ToggleHide
                   id="disabled.likes"
                   size="xs"
                   title={`${!!f.disabled.likes ? "Show" : "Hide"}`}

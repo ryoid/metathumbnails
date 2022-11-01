@@ -224,7 +224,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
           </FormControl>
 
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <FormControl>
+            <FormControl className="relative">
               <div className="flex items-center justify-between">
                 <Label htmlFor="retweets">Retweets</Label>
                 <ToggleHide
@@ -243,29 +243,31 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                   }}
                 />
               </div>
-              <InputText
-                id="retweets"
-                disabled={!!f.disabled.retweets}
-                value={f.retweets}
-                onChange={handleInputChange}
-                type="number"
-              />
-              <InputTip disabled={!!f.disabled.retweets}>
-                <Button
-                  variant="outline"
-                  onClick={(e) => {
-                    setForm((s) => ({
-                      ...s,
-                      retweets: randomInt(1, 250000),
-                    }));
-                    e.currentTarget.blur();
-                  }}
-                >
-                  <RandomIcon /> Randomize
-                </Button>
-              </InputTip>
+              <div>
+                <InputText
+                  id="retweets"
+                  disabled={!!f.disabled.retweets}
+                  value={f.retweets}
+                  onChange={handleInputChange}
+                  type="number"
+                />
+                <InputTip disabled={!!f.disabled.retweets}>
+                  <Button
+                    variant="outline"
+                    onClick={(e) => {
+                      setForm((s) => ({
+                        ...s,
+                        retweets: randomInt(1, 250000),
+                      }));
+                      e.currentTarget.blur();
+                    }}
+                  >
+                    <RandomIcon /> Randomize
+                  </Button>
+                </InputTip>
+              </div>
             </FormControl>
-            <FormControl>
+            <FormControl className="relative">
               <div className="flex items-center justify-between">
                 <Label htmlFor="quotes">Quotes</Label>
                 <ToggleHide
@@ -284,29 +286,31 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                   }}
                 />
               </div>
-              <InputText
-                id="quotes"
-                disabled={!!f.disabled.quotes}
-                value={f.quotes}
-                onChange={handleInputChange}
-                type="number"
-              />
-              <InputTip disabled={!!f.disabled.quotes}>
-                <Button
-                  variant="outline"
-                  onClick={(e) => {
-                    setForm((s) => ({
-                      ...s,
-                      quotes: randomInt(1, 250000),
-                    }));
-                    e.currentTarget.blur();
-                  }}
-                >
-                  <RandomIcon /> Randomize
-                </Button>
-              </InputTip>
+              <div>
+                <InputText
+                  id="quotes"
+                  disabled={!!f.disabled.quotes}
+                  value={f.quotes}
+                  onChange={handleInputChange}
+                  type="number"
+                />
+                <InputTip disabled={!!f.disabled.quotes}>
+                  <Button
+                    variant="outline"
+                    onClick={(e) => {
+                      setForm((s) => ({
+                        ...s,
+                        quotes: randomInt(1, 250000),
+                      }));
+                      e.currentTarget.blur();
+                    }}
+                  >
+                    <RandomIcon /> Randomize
+                  </Button>
+                </InputTip>
+              </div>
             </FormControl>
-            <FormControl>
+            <FormControl className="relative">
               <div className="flex items-center justify-between">
                 <Label htmlFor="likes">Likes</Label>
                 <ToggleHide
@@ -325,28 +329,30 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                   }}
                 />
               </div>
-              <InputText
-                id="likes"
-                disabled={!!f.disabled.likes}
-                value={f.likes}
-                onChange={handleInputChange}
-                type="number"
-                max={1e6}
-              />
-              <InputTip disabled={!!f.disabled.likes}>
-                <Button
-                  variant="outline"
-                  onClick={(e) => {
-                    setForm((s) => ({
-                      ...s,
-                      likes: randomInt(1, 250000),
-                    }));
-                    e.currentTarget.blur();
-                  }}
-                >
-                  <RandomIcon /> Randomize
-                </Button>
-              </InputTip>
+              <div>
+                <InputText
+                  id="likes"
+                  disabled={!!f.disabled.likes}
+                  value={f.likes}
+                  onChange={handleInputChange}
+                  type="number"
+                  max={1e6}
+                />
+                <InputTip disabled={!!f.disabled.likes}>
+                  <Button
+                    variant="outline"
+                    onClick={(e) => {
+                      setForm((s) => ({
+                        ...s,
+                        likes: randomInt(1, 250000),
+                      }));
+                      e.currentTarget.blur();
+                    }}
+                  >
+                    <RandomIcon /> Randomize
+                  </Button>
+                </InputTip>
+              </div>
             </FormControl>
           </div>
 

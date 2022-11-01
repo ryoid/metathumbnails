@@ -121,7 +121,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         <h3 className="mt-2 mb-3 inline-flex select-none rounded bg-purple-900/20 px-1.5 text-lg font-medium text-white/90">
           When
         </h3>
-        <div className="flex gap-2">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <FormControl>
             <div className="flex items-center justify-between">
               <Label htmlFor="date">Date</Label>

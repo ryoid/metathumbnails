@@ -19,7 +19,7 @@ const Home: NextPage = () => {
             </p>
             <div>
               <code className="rounded bg-gray-800 px-1 py-0.5 text-sm text-gray-500">
-                metathumbsnails.com/
+                metathumbnails.com/
                 <span className="text-gray-400">gmail?from=boss</span>
               </code>
             </div>

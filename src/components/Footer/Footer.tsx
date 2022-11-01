@@ -17,7 +17,7 @@ const Footer = React.forwardRef<FooterElement, FooterProps>(
         ref={forwardedRef}
       >
         <div className="flex flex-col items-center justify-center gap-4 py-8 px-4 md:flex-row">
-          <Link href="/" passHref>
+          <Link href="/gmail" passHref>
             <a>
               <div className="text-gray-500">Meta Thumbnails</div>
             </a>

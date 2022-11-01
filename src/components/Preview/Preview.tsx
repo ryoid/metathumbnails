@@ -497,7 +497,9 @@ const Preview = React.forwardRef<PreviewElement, PreviewProps>(
             )}
           </div>
           <div className="flex items-center text-sm text-gray-400">
-            {imageError ? null : imageLoading || !imageResult ? (
+            {imageError ? null : loadingResources ? (
+              <span>Loading resourcess...</span>
+            ) : imageLoading || !imageResult ? (
               <span>Generating thumbnail...</span>
             ) : (
               <span className="text-emerald-500">Get your thumbnail ↑</span>

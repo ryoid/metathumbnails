@@ -1,9 +1,7 @@
 import React from "react";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useAtom } from "jotai";
 
-import { templateFormAtom } from "../../store/form";
 import { Preview } from "../../components/Preview";
 import TemplateTabs from "../../components/TemplateTabs";
 import {
@@ -18,8 +16,6 @@ import { useRouter } from "next/router";
 const TemplatePage: NextPage = () => {
   const router = useRouter();
   const template = router.query.template as TemplateType;
-
-  const [templateForms] = useAtom(templateFormAtom);
 
   return (
     <>
@@ -43,10 +39,7 @@ const TemplatePage: NextPage = () => {
             </div>
 
             <div className="-order-1 w-full lg:order-2 lg:max-w-[400px]">
-              <Preview
-                template={template}
-                formAtom={templateForms[template as TemplateType]}
-              />
+              <Preview template={template} />
             </div>
           </div>
         </main>

@@ -2,7 +2,10 @@
 import React from "react";
 import satori, { SatoriOptions } from "satori";
 
-import { GmailFormState, DEFAULT_AVATAR } from "../../../store/form/gmail";
+import {
+  TemplateFormState,
+  DEFAULT_AVATAR,
+} from "../../../store/form/template";
 import {
   isThisYear,
   isToday,
@@ -11,7 +14,7 @@ import {
 } from "date-fns";
 import { LRUCache } from "../../../utils/cache";
 
-type GmailTemplateProps = GmailFormState;
+type GmailTemplateProps = TemplateFormState;
 
 const cache = new LRUCache();
 

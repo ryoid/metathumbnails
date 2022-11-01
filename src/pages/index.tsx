@@ -1,4 +1,3 @@
-import { useAtom } from "jotai";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../components/Layout";
@@ -10,11 +9,8 @@ import {
 } from "../components/templates";
 import { TemplateMeta } from "../components/templates/const";
 import TemplateTabs from "../components/TemplateTabs";
-import { templateFormAtom } from "../store/form";
 
 const Home: NextPage = () => {
-  const [templateForms] = useAtom(templateFormAtom);
-
   return (
     <>
       <Head>
@@ -37,10 +33,7 @@ const Home: NextPage = () => {
             </div>
 
             <div className="-order-1 w-full lg:order-2 lg:max-w-[400px]">
-              <Preview
-                template={DEFAULT_TEMPLATE}
-                formAtom={templateForms[DEFAULT_TEMPLATE]}
-              />
+              <Preview template={DEFAULT_TEMPLATE} />
             </div>
           </div>
         </main>

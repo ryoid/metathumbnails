@@ -13,13 +13,13 @@ import {
   InputAvatar,
   InputTip,
 } from "../../basic";
-import { gmailAtom } from "../../../store/form";
-import {
-  DEFAULT_AVATAR,
-  getInitialValue,
-  InitialGmailFormState,
-} from "../../../store/form/gmail";
 import { debounce } from "../../../utils/debounce";
+import {
+  getInitialValue,
+  templateAtom,
+  InitialTemplateFormState,
+  DEFAULT_AVATAR,
+} from "../../../store/form/template";
 
 type GmailFormElement = React.ElementRef<"form">;
 type PrimitiveGmailFormProps = React.ComponentPropsWithoutRef<"form">;
@@ -27,7 +27,7 @@ type GmailFormProps = PrimitiveGmailFormProps;
 
 const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
   (props, forwardedRef) => {
-    const [f, setForm] = useAtom(gmailAtom);
+    const [f, setForm] = useAtom(templateAtom);
     const fromFontSizeRef = React.useRef<HTMLInputElement>(null);
 
     React.useEffect(() => {
@@ -233,7 +233,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
         <Button
           onClick={() => {
             setForm({
-              ...InitialGmailFormState,
+              ...InitialTemplateFormState,
               ssr: false,
             });
           }}

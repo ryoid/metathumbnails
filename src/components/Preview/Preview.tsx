@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import cn from "clsx";
-import { useAtom, WritableAtom } from "jotai";
+import { useAtom } from "jotai";
 import { createIntlSegmenterPolyfill } from "intl-segmenter-polyfill";
 
 import { useDebounce } from "../../utils/debounce";
@@ -11,6 +11,7 @@ import { Button, Skeleton } from "../basic";
 import { TemplateType, TemplateRenderer } from "../templates";
 import { toast } from "react-hot-toast";
 import { CopyIcon } from "../icons";
+import { templateAtom } from "../../store/form";
 
 // @TODO: Support font style and weights, and make this option extensible rather
 // than built-in.
@@ -224,7 +225,6 @@ type PreviewElement = React.ElementRef<"div">;
 type PrimitivePreviewProps = React.ComponentPropsWithoutRef<"div">;
 type PreviewProps = Omit<PrimitivePreviewProps, "children"> & {
   template: TemplateType;
-  formAtom: WritableAtom<any, any>;
 };
 
 const NAME = "Preview";
@@ -234,8 +234,8 @@ const currentOptions = {};
 const overrideOptions: any = null;
 
 const Preview = React.forwardRef<PreviewElement, PreviewProps>(
-  ({ template = "twitter", formAtom, ...props }, forwardedRef) => {
-    const [f] = useAtom(formAtom);
+  ({ template = "twitter", ...props }, forwardedRef) => {
+    const [f] = useAtom(templateAtom);
 
     const [options, setOptions] = React.useState<any | object | null>(null);
     const [debug, setDebug] = React.useState(false);

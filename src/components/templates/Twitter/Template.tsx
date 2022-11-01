@@ -2,10 +2,13 @@
 import satori, { SatoriOptions } from "satori";
 import format from "date-fns/format";
 
-import { TwitterFormState, DEFAULT_AVATAR } from "../../../store/form/twitter";
+import {
+  TemplateFormState,
+  DEFAULT_AVATAR,
+} from "../../../store/form/template";
 import { LRUCache } from "../../../utils/cache";
 
-type TwitterTemplateProps = TwitterFormState;
+type TwitterTemplateProps = TemplateFormState;
 
 const cache = new LRUCache(10);
 

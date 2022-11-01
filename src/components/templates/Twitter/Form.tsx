@@ -13,12 +13,12 @@ import {
 } from "../../basic";
 import { RandomIcon } from "../../icons";
 import { randomInt } from "../../../utils/random";
-import { twitterAtom } from "../../../store/form";
 import {
-  InitialTwitterFormState,
-  DEFAULT_AVATAR,
   getInitialValue,
-} from "../../../store/form/twitter";
+  templateAtom,
+  InitialTemplateFormState,
+  DEFAULT_AVATAR,
+} from "../../../store/form/template";
 
 type TwitterFormElement = React.ElementRef<"form">;
 type PrimitiveTwitterFormProps = React.ComponentPropsWithoutRef<"form">;
@@ -26,7 +26,7 @@ type TwitterFormProps = PrimitiveTwitterFormProps;
 
 const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
   (props, forwardedRef) => {
-    const [f, setForm] = useAtom(twitterAtom);
+    const [f, setForm] = useAtom(templateAtom);
 
     React.useEffect(() => {
       if (typeof window !== undefined && f.ssr) {
@@ -276,7 +276,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         <Button
           onClick={() => {
             setForm({
-              ...InitialTwitterFormState,
+              ...InitialTemplateFormState,
               ssr: false,
             });
           }}

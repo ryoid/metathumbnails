@@ -197,7 +197,10 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
                 placeholder="Leave blank to use date"
                 autoComplete="off"
               />
-              <InputTip description="Leave blank to use relative date">
+              <InputTip
+                description="Leave blank to use relative date"
+                disabled={!!f.disabled.time_ago}
+              >
                 <Button
                   variant="outline"
                   onClick={(e) => {
@@ -265,10 +268,10 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
             </div>
             <InputTag
               id="suggestions"
+              disabled={!!f.disabled.suggestions}
               placeholder="Add a suggestion"
               autoComplete="off"
               defaultValue={f.suggestions}
-              disabled={!!f.disabled.suggestions}
               tag={SuggestionPill}
               tagCn="text-blue-500"
               onChange={(values) => {

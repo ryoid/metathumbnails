@@ -176,7 +176,10 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 onChange={handleInputChange}
                 autoComplete="off"
               />
-              <InputTip description="Twitter Web App, Twitter for iPhone">
+              <InputTip
+                description="Twitter Web App, Twitter for iPhone"
+                disabled={!!f.disabled.platform}
+              >
                 <Button
                   variant="outline"
                   onClick={(e) => {
@@ -247,7 +250,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 onChange={handleInputChange}
                 type="number"
               />
-              <InputTip>
+              <InputTip disabled={!!f.disabled.retweets}>
                 <Button
                   variant="outline"
                   onClick={(e) => {
@@ -288,7 +291,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 onChange={handleInputChange}
                 type="number"
               />
-              <InputTip>
+              <InputTip disabled={!!f.disabled.quotes}>
                 <Button
                   variant="outline"
                   onClick={(e) => {
@@ -330,7 +333,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 type="number"
                 max={1e6}
               />
-              <InputTip>
+              <InputTip disabled={!!f.disabled.likes}>
                 <Button
                   variant="outline"
                   onClick={(e) => {

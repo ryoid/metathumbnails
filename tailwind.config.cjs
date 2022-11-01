@@ -41,6 +41,9 @@ module.exports = {
         },
       },
     },
+    data: {
+      disabled: 'ui~="disabled"',
+    },
   },
   plugins: [],
 };

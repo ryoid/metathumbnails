@@ -190,6 +190,20 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 onChange={handleInputChange}
                 type="number"
               />
+              <InputTip>
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    setForm((s) => ({
+                      ...s,
+                      retweets: randomInt(1, 250000),
+                    }));
+                    e.currentTarget.blur();
+                  }}
+                >
+                  <RandomIcon /> Randomize
+                </Button>
+              </InputTip>
             </FormControl>
             <FormControl>
               <Label htmlFor="quotes">Quotes</Label>
@@ -199,6 +213,20 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 onChange={handleInputChange}
                 type="number"
               />
+              <InputTip>
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    setForm((s) => ({
+                      ...s,
+                      quotes: randomInt(1, 250000),
+                    }));
+                    e.currentTarget.blur();
+                  }}
+                >
+                  <RandomIcon /> Randomize
+                </Button>
+              </InputTip>
             </FormControl>
             <FormControl>
               <Label htmlFor="likes">Likes</Label>
@@ -209,6 +237,20 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 type="number"
                 max={1e6}
               />
+              <InputTip>
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    setForm((s) => ({
+                      ...s,
+                      likes: randomInt(1, 250000),
+                    }));
+                    e.currentTarget.blur();
+                  }}
+                >
+                  <RandomIcon /> Randomize
+                </Button>
+              </InputTip>
             </FormControl>
           </div>
 

@@ -15,13 +15,13 @@ const InputTip = React.forwardRef<InputTipElement, InputTipProps>(
       <div
         {...props}
         className={cn(
-          "absolute mt-2 rounded border border-white/5 bg-gray-900 px-2 py-1.5 text-xs text-gray-400 opacity-0 transition-opacity group-focus-within:opacity-100",
+          "absolute mt-2 flex flex-col gap-2 rounded border border-white/5 bg-gray-900 px-2 py-1.5 text-xs text-gray-400 opacity-0 transition-opacity group-focus-within:opacity-100",
           props.className
         )}
         ref={forwardedRef}
       >
-        <div className="mb-2 flex gap-2">{children}</div>
-        <span className="italic">{description}</span>
+        <div className="flex gap-2">{children}</div>
+        {description && <span className="italic">{description}</span>}
       </div>
     );
   }

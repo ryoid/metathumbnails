@@ -143,9 +143,10 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 <Button
                   variant="outline"
                   onClick={(e) => {
-                    handleInputChange({
-                      target: { value: "Twitter Web App", id: "platform" },
-                    } as React.ChangeEvent<HTMLInputElement>);
+                    setForm((s) => ({
+                      ...s,
+                      platform: "Twitter Web App",
+                    }));
                     e.currentTarget.blur();
                   }}
                 >
@@ -154,9 +155,10 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 <Button
                   variant="outline"
                   onClick={(e) => {
-                    handleInputChange({
-                      target: { value: "Twitter for iPhone", id: "platform" },
-                    } as React.ChangeEvent<HTMLInputElement>);
+                    setForm((s) => ({
+                      ...s,
+                      platform: "Twitter for iPhone",
+                    }));
                     e.currentTarget.blur();
                   }}
                 >

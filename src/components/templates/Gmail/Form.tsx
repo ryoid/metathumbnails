@@ -167,9 +167,10 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
                 <Button
                   variant="outline"
                   onClick={(e) => {
-                    handleInputChange({
-                      target: { value: "", id: "time_ago" },
-                    } as React.ChangeEvent<HTMLInputElement>);
+                    setForm((s) => ({
+                      ...s,
+                      time_ago: "",
+                    }));
                     e.currentTarget.blur();
                   }}
                 >
@@ -178,9 +179,10 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
                 <Button
                   variant="outline"
                   onClick={(e) => {
-                    handleInputChange({
-                      target: { value: "1 minute", id: "time_ago" },
-                    } as React.ChangeEvent<HTMLInputElement>);
+                    setForm((s) => ({
+                      ...s,
+                      time_ago: "1 minute",
+                    }));
                     e.currentTarget.blur();
                   }}
                 >

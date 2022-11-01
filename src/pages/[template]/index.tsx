@@ -2,15 +2,15 @@ import React from "react";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 
-import { Preview } from "../../components/Preview";
-import TemplateTabs from "../../components/TemplateTabs";
+import { Preview } from "@/components/Preview";
+import TemplateTabs from "@/components/TemplateTabs";
 import {
   TemplateType,
   TemplateTypes,
   TemplateConfigurator,
-} from "../../components/templates";
-import Layout from "../../components/Layout";
-import { TemplateMeta } from "../../components/templates/const";
+} from "@/components/templates";
+import Layout from "@/components/Layout";
+import { TemplateMeta } from "@/components/templates/const";
 import { useRouter } from "next/router";
 
 const TemplatePage: NextPage = () => {

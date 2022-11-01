@@ -20,6 +20,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <main className="pt-4 lg:mt-8">
+          <h2>Coming soon</h2>
           <div className="container mx-auto mb-8 flex justify-center">
             <TemplateTabs active={DEFAULT_TEMPLATE} />
           </div>

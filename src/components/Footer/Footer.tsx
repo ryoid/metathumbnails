@@ -18,7 +18,7 @@ const Footer = React.forwardRef<FooterElement, FooterProps>(
       >
         <div className="flex flex-col items-center justify-center gap-4 py-8 px-4 md:flex-row">
           <div className="text-gray-500">Meta Thumbnails</div>
-          <Link href="/" passHref>
+          <Link href="/product/api" passHref>
             <a>
               <div className="text-gray-500">API</div>
             </a>

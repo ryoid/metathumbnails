@@ -19,8 +19,6 @@ type InputTagProps = Omit<
 };
 
 const NAME = "InputTag";
-const RootCn =
-  "group flex items-center justify-center text-sm h-auto block rounded-lg py-2.5 pl-4 pr-3.5 text-sm ring-1 ring-gray-200 hover:ring-gray-300 bg-gray-800/75 ring-inset ring-white/5 hover:bg-gray-700/40 hover:ring-gray-500 w-full";
 const TagContainerCn = "mt-1.5 flex flex-wrap gap-1.5";
 
 const instance = hyperid();
@@ -38,7 +36,10 @@ const formatDefaultValue = (
 };
 
 const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
-  ({ tag, tagCn, defaultValue, onChange, ...props }, forwardedRef) => {
+  (
+    { tag, tagCn, defaultValue, disabled, onChange, ...props },
+    forwardedRef
+  ) => {
     const innerRef = React.useRef<InputTagElement>(null);
     const [tags, setTags] = React.useState<InputTagValue[]>(
       formatDefaultValue(defaultValue)
@@ -86,9 +87,19 @@ const InputTag = React.forwardRef<InputTagElement, InputTagProps>(
       <>
         <input
           {...props}
-          className={cn(RootCn, props.className)}
+          className={cn(
+            "group flex h-auto w-full items-center justify-center rounded-lg py-2.5 pl-4 pr-3.5 text-sm ring-1 ring-inset",
+            {
+              "bg-gray-800/75 text-gray-100 ring-white/5 hover:bg-gray-700/40 hover:ring-gray-500":
+                !disabled,
+              "cursor-not-allowed bg-gray-800/20 text-gray-500 ring-white/5":
+                disabled,
+            },
+            props.className
+          )}
           ref={innerRef}
           onKeyDown={handleKeyDown}
+          disabled={disabled}
         />
         <div className={TagContainerCn}>
           {tags.map((tag) => (

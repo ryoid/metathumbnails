@@ -7,7 +7,9 @@ type ComponentNameProps = PrimitiveComponentNameProps;
 const NAME = "ComponentName";
 
 const ComponentName: React.FC<ComponentNameProps> = (props) => {
-  return <div {...props} className={cn("group", props.className)} />;
+  return (
+    <div {...props} className={cn("group flex flex-col", props.className)} />
+  );
 };
 
 ComponentName.displayName = NAME;

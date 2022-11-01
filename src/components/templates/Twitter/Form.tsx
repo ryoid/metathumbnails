@@ -10,6 +10,7 @@ import {
   InputTip,
   Label,
   Textarea,
+  Toggle,
 } from "../../basic";
 import { RandomIcon } from "../../icons";
 import { randomInt } from "../../../utils/random";
@@ -29,7 +30,7 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
     const [f, setForm] = useAtom(templateAtom);
 
     React.useEffect(() => {
-      if (typeof window !== undefined && f.ssr) {
+      if (typeof window !== undefined) {
         setForm(getInitialValue());
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,19 +123,55 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
         </h3>
         <div className="flex gap-2">
           <FormControl>
-            <Label htmlFor="date">Date</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="date">Date</Label>
+              <Toggle
+                id="disabled.date"
+                size="xs"
+                title={`${!!f.disabled.date ? "Show" : "Hide"}`}
+                checked={!!f.disabled.date}
+                onChange={() => {
+                  setForm((s) => ({
+                    ...s,
+                    disabled: {
+                      ...s.disabled,
+                      date: !s.disabled.date,
+                    },
+                  }));
+                }}
+              />
+            </div>
             <InputText
               id="date"
+              disabled={!!f.disabled.date}
               value={f.date}
               type="datetime-local"
               onChange={handleInputChange}
             />
           </FormControl>
           <FormControl className="relative">
-            <Label htmlFor="platform">Device</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="platform">Device</Label>
+              <Toggle
+                id="disabled.platform"
+                size="xs"
+                title={`${!!f.disabled.platform ? "Show" : "Hide"}`}
+                checked={!!f.disabled.platform}
+                onChange={() => {
+                  setForm((s) => ({
+                    ...s,
+                    disabled: {
+                      ...s.disabled,
+                      platform: !s.disabled.platform,
+                    },
+                  }));
+                }}
+              />
+            </div>
             <div>
               <InputText
                 id="platform"
+                disabled={!!f.disabled.platform}
                 value={f.platform}
                 onChange={handleInputChange}
                 autoComplete="off"
@@ -185,9 +222,27 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
 
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             <FormControl>
-              <Label htmlFor="retweets">Retweets</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="retweets">Retweets</Label>
+                <Toggle
+                  id="disabled.retweets"
+                  size="xs"
+                  title={`${!!f.disabled.retweets ? "Show" : "Hide"}`}
+                  checked={!!f.disabled.retweets}
+                  onChange={() => {
+                    setForm((s) => ({
+                      ...s,
+                      disabled: {
+                        ...s.disabled,
+                        retweets: !s.disabled.retweets,
+                      },
+                    }));
+                  }}
+                />
+              </div>
               <InputText
                 id="retweets"
+                disabled={!!f.disabled.retweets}
                 value={f.retweets}
                 onChange={handleInputChange}
                 type="number"
@@ -208,9 +263,27 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
               </InputTip>
             </FormControl>
             <FormControl>
-              <Label htmlFor="quotes">Quotes</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="quotes">Quotes</Label>
+                <Toggle
+                  id="disabled.quotes"
+                  size="xs"
+                  title={`${!!f.disabled.quotes ? "Show" : "Hide"}`}
+                  checked={!!f.disabled.quotes}
+                  onChange={() => {
+                    setForm((s) => ({
+                      ...s,
+                      disabled: {
+                        ...s.disabled,
+                        quotes: !s.disabled.quotes,
+                      },
+                    }));
+                  }}
+                />
+              </div>
               <InputText
                 id="quotes"
+                disabled={!!f.disabled.quotes}
                 value={f.quotes}
                 onChange={handleInputChange}
                 type="number"
@@ -231,9 +304,27 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
               </InputTip>
             </FormControl>
             <FormControl>
-              <Label htmlFor="likes">Likes</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="likes">Likes</Label>
+                <Toggle
+                  id="disabled.likes"
+                  size="xs"
+                  title={`${!!f.disabled.likes ? "Show" : "Hide"}`}
+                  checked={!!f.disabled.likes}
+                  onChange={() => {
+                    setForm((s) => ({
+                      ...s,
+                      disabled: {
+                        ...s.disabled,
+                        likes: !s.disabled.likes,
+                      },
+                    }));
+                  }}
+                />
+              </div>
               <InputText
                 id="likes"
+                disabled={!!f.disabled.likes}
                 value={f.likes}
                 onChange={handleInputChange}
                 type="number"

@@ -12,6 +12,7 @@ import {
   InputTag,
   InputAvatar,
   InputTip,
+  Toggle,
 } from "../../basic";
 import { debounce } from "../../../utils/debounce";
 import {
@@ -31,7 +32,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
     const fromFontSizeRef = React.useRef<HTMLInputElement>(null);
 
     React.useEffect(() => {
-      if (typeof window !== undefined && f.ssr) {
+      if (typeof window !== undefined) {
         const initial = getInitialValue();
         setForm(initial);
         if (fromFontSizeRef.current) {
@@ -63,7 +64,7 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
         </h3>
         <div className="mb-2 flex flex-col gap-3 lg:grid lg:grid-cols-3">
           <FormControl className="col-span-2">
-            <Label htmlFor="from">
+            <Label htmlFor="from" className="mb-2">
               From Font Size
               <span className="text-gray-500">
                 {" - "}
@@ -112,16 +113,13 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
                 id="from"
                 value={f.from}
                 onChange={handleInputChange}
+                disabled={!!f.disabled.from}
               />
             </FormControl>
 
             <FormControl>
-              <Label htmlFor="username">To</Label>
-              <InputText
-                id="username"
-                value={f.to}
-                onChange={handleInputChange}
-              />
+              <Label htmlFor="to">To</Label>
+              <InputText id="to" value={f.to} onChange={handleInputChange} />
             </FormControl>
           </div>
 
@@ -144,20 +142,56 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
           When
         </h3>
         <div className="flex gap-2">
-          <FormControl>
-            <Label htmlFor="date">Date</Label>
+          <FormControl className="w-full">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="date">Date</Label>
+              <Toggle
+                id="disabled.date"
+                size="xs"
+                title={`${!!f.disabled.date ? "Show" : "Hide"}`}
+                checked={!!f.disabled.date}
+                onChange={() => {
+                  setForm((s) => ({
+                    ...s,
+                    disabled: {
+                      ...s.disabled,
+                      date: !s.disabled.date,
+                    },
+                  }));
+                }}
+              />
+            </div>
             <InputText
               id="date"
+              disabled={!!f.disabled.date}
               type="datetime-local"
               value={f.date}
               onChange={handleInputChange}
             />
           </FormControl>
-          <FormControl>
-            <Label htmlFor="time_ago">How long ago</Label>
+          <FormControl className="w-full">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="time_ago">How long ago</Label>
+              <Toggle
+                id="disabled.time_ago"
+                size="xs"
+                title={`${!!f.disabled.time_ago ? "Show" : "Hide"}`}
+                checked={!!f.disabled.time_ago}
+                onChange={() => {
+                  setForm((s) => ({
+                    ...s,
+                    disabled: {
+                      ...s.disabled,
+                      time_ago: !s.disabled.time_ago,
+                    },
+                  }));
+                }}
+              />
+            </div>
             <div>
               <InputText
                 id="time_ago"
+                disabled={!!f.disabled.time_ago}
                 value={f.time_ago}
                 onChange={handleInputChange}
                 placeholder="Leave blank to use date"
@@ -210,13 +244,31 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
             />
           </FormControl>
 
-          <FormControl>
-            <Label htmlFor="suggestions">Suggestion Pills</Label>
+          <FormControl className="w-full">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="suggestions">Suggestion Pills</Label>
+              <Toggle
+                id="disabled.suggestions"
+                size="xs"
+                title={`${!!f.disabled.suggestions ? "Show" : "Hide"}`}
+                checked={!!f.disabled.suggestions}
+                onChange={() => {
+                  setForm((s) => ({
+                    ...s,
+                    disabled: {
+                      ...s.disabled,
+                      suggestions: !s.disabled.suggestions,
+                    },
+                  }));
+                }}
+              />
+            </div>
             <InputTag
               id="suggestions"
               placeholder="Add a suggestion"
               autoComplete="off"
               defaultValue={f.suggestions}
+              disabled={!!f.disabled.suggestions}
               tag={SuggestionPill}
               tagCn="text-blue-500"
               onChange={(values) => {

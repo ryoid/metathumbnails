@@ -33,8 +33,34 @@ type FormStateInputs = {
 
 export type TemplateFormState = FormState &
   FormStateInputs & {
-    disabled: Record<keyof FormStateInputs, boolean> | object;
+    disabled: Record<keyof FormStateInputs, boolean>;
   };
+
+const InitialFormStateInputs = {
+  version: 0,
+
+  from: "Your Boss",
+  to: "me",
+  avatar: DEFAULT_AVATAR,
+  date: dateToLocaleISOString(initalDate()),
+  time_ago: "1 minute",
+  body: "Come to my office. Now.",
+
+  // Twitter
+  username: "boss",
+  platform: "Twitter for iPhone",
+  retweets: 144,
+  quotes: 491,
+  likes: 2130,
+
+  // Gmail
+  suggestions: ["Oh no...", "Am I getting"],
+
+  theme: "light",
+  fromSize: 120,
+
+  ssr: isSSR,
+};
 
 export const InitialTemplateFormState: TemplateFormState = {
   version: 0,
@@ -60,7 +86,10 @@ export const InitialTemplateFormState: TemplateFormState = {
   fromSize: 120,
   ssr: isSSR,
 
-  disabled: {},
+  disabled: Object.keys(InitialFormStateInputs).reduce((acc, key) => {
+    acc[key] = false;
+    return acc;
+  }, {} as any),
 };
 
 const PERSIST_KEY = "template-form";

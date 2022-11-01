@@ -27,6 +27,11 @@ const Footer = React.forwardRef<FooterElement, FooterProps>(
               <div className="text-gray-500">API</div>
             </a>
           </Link>
+          <Link href="https://twitter.com/ry_oid" passHref>
+            <a>
+              <div className="text-gray-500">Contact</div>
+            </a>
+          </Link>
         </div>
       </footer>
     );

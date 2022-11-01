@@ -1,5 +1,6 @@
 // src/pages/_app.tsx
 import "@/styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
 import type { Session } from "next-auth";
 import type { AppType } from "next/app";
@@ -52,6 +53,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         }}
       />
       <Component {...pageProps} />
+      <Analytics />
     </>
   );
 };

@@ -7,6 +7,7 @@ import Skeleton from "./Skeleton";
 import Button from "./Button";
 import InputTag from "./InputTag";
 import InputAvatar from "./InputAvatar";
+import InputTip from "./InputTip";
 
 export {
   InputText,
@@ -18,4 +19,5 @@ export {
   Button,
   InputTag,
   InputAvatar,
+  InputTip,
 };

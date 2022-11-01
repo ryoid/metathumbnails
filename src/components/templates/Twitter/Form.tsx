@@ -7,6 +7,7 @@ import {
   FormControl,
   InputAvatar,
   InputText,
+  InputTip,
   Label,
   Textarea,
 } from "../../basic";
@@ -138,33 +139,30 @@ const TwitterForm = React.forwardRef<TwitterFormElement, TwitterFormProps>(
                 onChange={handleInputChange}
                 autoComplete="off"
               />
-              <div className="absolute mt-2 rounded border border-white/5 bg-gray-900 px-2 py-1.5 text-xs text-gray-400 opacity-0 transition-opacity group-focus-within:opacity-100">
-                <div className="mb-2 flex gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={(e) => {
-                      handleInputChange({
-                        target: { value: "Twitter Web App", id: "platform" },
-                      } as React.ChangeEvent<HTMLInputElement>);
-                      e.currentTarget.blur();
-                    }}
-                  >
-                    Website
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={(e) => {
-                      handleInputChange({
-                        target: { value: "Twitter for iPhone", id: "platform" },
-                      } as React.ChangeEvent<HTMLInputElement>);
-                      e.currentTarget.blur();
-                    }}
-                  >
-                    iPhone
-                  </Button>
-                </div>
-                <span className="italic">{`Twitter Web App, Twitter for iPhone`}</span>
-              </div>
+              <InputTip description="Twitter Web App, Twitter for iPhone">
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    handleInputChange({
+                      target: { value: "Twitter Web App", id: "platform" },
+                    } as React.ChangeEvent<HTMLInputElement>);
+                    e.currentTarget.blur();
+                  }}
+                >
+                  Website
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    handleInputChange({
+                      target: { value: "Twitter for iPhone", id: "platform" },
+                    } as React.ChangeEvent<HTMLInputElement>);
+                    e.currentTarget.blur();
+                  }}
+                >
+                  iPhone
+                </Button>
+              </InputTip>
             </div>
           </FormControl>
         </div>

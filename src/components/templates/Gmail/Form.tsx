@@ -11,6 +11,7 @@ import {
   Textarea,
   InputTag,
   InputAvatar,
+  InputTip,
 } from "../../basic";
 import { gmailAtom } from "../../../store/form";
 import {
@@ -162,33 +163,30 @@ const GmailForm = React.forwardRef<GmailFormElement, GmailFormProps>(
                 placeholder="Leave blank to use date"
                 autoComplete="off"
               />
-              <div className="absolute mt-2 rounded border border-white/5 bg-gray-900 px-2 py-1.5 text-xs text-gray-400 opacity-0 transition-opacity group-focus-within:opacity-100">
-                <div className="mb-2 flex gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={(e) => {
-                      handleInputChange({
-                        target: { value: "", id: "time_ago" },
-                      } as React.ChangeEvent<HTMLInputElement>);
-                      e.currentTarget.blur();
-                    }}
-                  >
-                    Relative
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={(e) => {
-                      handleInputChange({
-                        target: { value: "1 minute", id: "time_ago" },
-                      } as React.ChangeEvent<HTMLInputElement>);
-                      e.currentTarget.blur();
-                    }}
-                  >
-                    1 Minute
-                  </Button>
-                </div>
-                <span className="italic">Leave blank to use relative date</span>
-              </div>
+              <InputTip description="Leave blank to use relative date">
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    handleInputChange({
+                      target: { value: "", id: "time_ago" },
+                    } as React.ChangeEvent<HTMLInputElement>);
+                    e.currentTarget.blur();
+                  }}
+                >
+                  Relative
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    handleInputChange({
+                      target: { value: "1 minute", id: "time_ago" },
+                    } as React.ChangeEvent<HTMLInputElement>);
+                    e.currentTarget.blur();
+                  }}
+                >
+                  1 Minute
+                </Button>
+              </InputTip>
             </div>
           </FormControl>
         </div>

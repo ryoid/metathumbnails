@@ -14,14 +14,14 @@ const Layout = React.forwardRef<LayoutElement, LayoutProps>(
     return (
       <div
         {...props}
-        className={cn("min-h-screen", props.className)}
+        className={cn("flex min-h-screen flex-col", props.className)}
         ref={forwardedRef}
       >
         <Header />
 
         {children}
 
-        <Footer />
+        <Footer className="mt-auto" />
       </div>
     );
   }

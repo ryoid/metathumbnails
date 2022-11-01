@@ -26,10 +26,11 @@ const ToggleHide = React.forwardRef<ToggleHideElement, ToggleHideProps>(
             className="peer sr-only"
             ref={forwardedRef}
           />
-          <HideIcon className={cn("block peer-checked:hidden", {})} />
-          <UnhideIcon
-            className={cn("hidden text-rose-300 peer-checked:block", {})}
-          />
+          <HideIcon className="block peer-checked:hidden" />
+          <span className="hidden items-center peer-checked:flex">
+            <span className="mr-1 text-xs font-semibold">Hidden</span>
+            <UnhideIcon className="text-gray-300 " />
+          </span>
         </div>
       </label>
     );

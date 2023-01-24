@@ -13,6 +13,8 @@ import Layout from "@/components/Layout";
 import { TemplateMeta } from "@/components/templates/const";
 import { useRouter } from "next/router";
 
+export const runtime = "edge";
+
 const TemplatePage: NextPage = () => {
   const router = useRouter();
   const template = router.query.template as TemplateType;

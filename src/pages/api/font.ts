@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
 export const config = {
-  runtime: "edge",
+  runtime: "experimental-edge",
 };
 
 export default async function loadGoogleFont(req: NextRequest) {

@@ -13,7 +13,7 @@ import Layout from "@/components/Layout";
 import { TemplateMeta } from "@/components/templates/const";
 import { useRouter } from "next/router";
 
-export const runtime = "edge";
+export const runtime = "experimental-edge";
 
 const TemplatePage: NextPage = () => {
   const router = useRouter();
